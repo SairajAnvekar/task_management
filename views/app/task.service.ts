@@ -21,8 +21,17 @@ private heroesUrl = 'tasks';  // URL to web API
 	getTaskApi (): Observable<Task[]> {
 	 return this.http.get(this.heroesUrl).map(this.extractData).catch(this.handleError);
 	}
+	
+	
+		getHeroes1 (): Promise<Task[]> {
+		return this.http.get(this.heroesUrl)
+					.toPromise()
+					.then(this.extractData)
+					.catch(this.handleError);
+		}
 
  private extractData(res: Response) {
+	 console.log(res);
     let body = res.json();
     return body.data || { };
   }

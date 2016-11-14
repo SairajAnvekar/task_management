@@ -1,7 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 import {Task} from './task';
 import { TaskService } from './task.service';
-
+import { Http, Response } from '@angular/http';
 
 @Component({
   selector: 'my-tasks',
@@ -80,19 +80,31 @@ export class TaskComponent implements OnInit {
 	onSelect(task: Task): void {
 			this.selectedTask = task;
 		}
-		
+
 	constructor(private taskService:TaskService) { }	
 	getTasks(): void {
 		this.taskService.getTasks().then(tasks => this.tasks = tasks);;
 	}
   
 	ngOnInit(): void {
-		this.getTasks();
+		this.getTasksOb();
 	
 	}
 	
 	
-	getHeroes() {
+	
+	/// using promise call
+		getHeroes2() {
+		this.taskService.getHeroes1()
+					 .then(
+					   tasks => this.tasks = tasks,
+					   error =>  this.errorMessage = <any>error);
+		}
+
+	
+	
+	
+	getTasksOb() {
 		this.taskService.getTaskApi().subscribe(
 			tasks => this.tasks = tasks,
 			error =>  this.errorMessage = <any>error

@@ -20,16 +20,18 @@ app.get('/test', function(req, res, next) {
 });
 
 app.get('/tasks',function(req, res, next){
-	res.json({ id: 11, name: 'Learn Angular 2' },
+		res.json({
+  "data": [
+   { id: 11, name: 'Learn Angular 2' },
   { id: 12, name: 'Bulid small app' },
   { id: 13, name: 'Ui development' },
   { id: 14, name: 'Impovement ' },
-  { id: 15, name: 'Test' });
+  { id: 15, name: 'Test' ,test:"ffff"}
+  ]
+});
 
-})
-{
-	
-}
+});
+
 
 app.use(errorHandler);
 
