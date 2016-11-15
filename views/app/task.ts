@@ -1,4 +1,5 @@
 export class Task {
   id: number;
-  name: string;  
+  name: string;
+  piority:number;  
 } 

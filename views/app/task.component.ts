@@ -2,13 +2,26 @@ import { Component , OnInit} from '@angular/core';
 import {Task} from './task';
 import { TaskService } from './task.service';
 import { Http, Response } from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'my-tasks',
   template: `<h1>{{title}}</h1> 
+  
+	<div>
+	<label>Hero name:</label> 
+	<input #taskname />
+	<input #taskId />
+	<input #taskPiority />
+	<button (click)="add(taskname.value,taskId.value,taskPiority.value); taskname.value='' ">
+	Add
+	</button>
+	</div>
+  
 	<ul class="tasks">
-      <li *ngFor="let task of tasks"  (click)="onSelect(task)" >
-        <span class="badge">{{task.id}}</span> {{task.name}}
+      <li *ngFor="let task of tasks; let i = index"  (click)="onSelect(task)" >
+        <span class="badge">{{i+1}}</span> {{task.name}}
+		<button class="delete" (click)="delete(task); $event.stopPropagation()">x</button>
       </li>
     </ul>
 	
@@ -64,6 +77,14 @@ import { Http, Response } from '@angular/http';
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
     }
+	
+	button.delete {
+		float:right;
+		margin-top: 2px;
+		margin-right: .8em;
+		background-color: gray !important;
+		color:white;
+	}
   `],
     providers: [TaskService]
 })
@@ -72,7 +93,8 @@ export class TaskComponent implements OnInit {
 	errorMessage: string;
 	task: Task ={
 					id: 1,
-					name: 'Build App'
+					name: 'Build App',
+					 piority:1
 				};
 				
 	tasks:Task[]; 
@@ -83,7 +105,7 @@ export class TaskComponent implements OnInit {
 
 	constructor(private taskService:TaskService) { }	
 	getTasks(): void {
-		this.taskService.getTasks().then(tasks => this.tasks = tasks);;
+	//	this.taskService.getTasks().then(tasks => this.tasks = tasks);;
 	}
   
 	ngOnInit(): void {
@@ -111,6 +133,31 @@ export class TaskComponent implements OnInit {
 		);
 	}
 	
+	
+	
+
+	
+	add(name: string,_id: string ,pri:number): void {
+	   name = name.trim();		
+
+			this.taskService.addTask(name,_id,pri)
+					 .subscribe(
+					   task  =>this.tasks.push(task),
+					   error =>  this.errorMessage = <any>error);
+		
+		
+		
+	}
+	
+	delete(task): void {
+			this.taskService.deleteTask(task._id).subscribe(
+	  tasks1 => {
+				this.getTasksOb();
+			},
+			error =>  this.errorMessage = <any>error
+		);
+			
+	}
 	
 	
 	

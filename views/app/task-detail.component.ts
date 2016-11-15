@@ -5,6 +5,8 @@ import {Task} from './task';
   template:`<div *ngIf="task">
 		<h2>{{task.name}} details!</h2>
 		<div><label>id: </label>{{task.id}}</div>
+		<div><label>id: </label>{{task._id}}</div>
+			<div><label>piority: </label>{{task.priority}}</div>
 		<div>
 			<label>name: </label>
 			<input [(ngModel)]="task.name" placeholder="name"/>
