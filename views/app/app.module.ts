@@ -7,6 +7,7 @@ import { AppComponent }        from './app.component';
 import { RouterModule }   from '@angular/router';
 import { DashboardComponent }   from './dashboard.component';
 import { HttpModule }    from '@angular/http';
+import { Dragula } from 'ng2-dragula/ng2-dragula';
 @NgModule({
 imports:[
 	BrowserModule, 
@@ -25,7 +26,7 @@ imports:[
 	])
   
   ],
-  declarations: [AppComponent,TaskComponent , TaskDetailComponent ,  DashboardComponent],
+  declarations: [AppComponent,TaskComponent , TaskDetailComponent ,  DashboardComponent,Dragula],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

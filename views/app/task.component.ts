@@ -3,6 +3,7 @@ import {Task} from './task';
 import { TaskService } from './task.service';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 @Component({
   selector: 'my-tasks',
@@ -18,13 +19,15 @@ import { Headers, RequestOptions } from '@angular/http';
 	</button>
 	</div>
   
-	<ul class="tasks">
+	<ul class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
       <li *ngFor="let task of tasks; let i = index"  (click)="onSelect(task)" >
         <span class="badge">{{i+1}}</span> {{task.name}}
 		<button class="delete" (click)="delete(task); $event.stopPropagation()">x</button>
       </li>
     </ul>
-	
+	 <div class='container'>
+            <pre>{{tasks | json}}</pre>
+        </div>
   <task-detail [task]="selectedTask"></task-detail>
 
 	
@@ -86,6 +89,7 @@ import { Headers, RequestOptions } from '@angular/http';
 		color:white;
 	}
   `],
+  	viewProviders: [DragulaService],
     providers: [TaskService]
 })
 export class TaskComponent implements OnInit {
@@ -103,7 +107,25 @@ export class TaskComponent implements OnInit {
 			this.selectedTask = task;
 		}
 
-	constructor(private taskService:TaskService) { }	
+    public constructor(private dragulaService:DragulaService,private taskService:TaskService) {
+	  
+		dragulaService.dropModel.subscribe((value:any) => {
+		this.onDropModel(value.slice(1));
+
+		});
+   
+  }
+	
+	
+	 private onDropModel(args:any):void {
+    let [el, target, source] = args;
+    console.log('onDropModel:');
+    console.log(el);
+    console.log(target);
+    console.log(source);
+  }
+	
+	
 	getTasks(): void {
 	//	this.taskService.getTasks().then(tasks => this.tasks = tasks);;
 	}

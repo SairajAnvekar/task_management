@@ -3,6 +3,7 @@ var express = require('express');
 var Task = require('./app/models/tasks.js');
 var configDB = require('./config/database.js');
 var bodyParser     =        require("body-parser");
+var morgan = require('morgan');
 mongoose.connect(configDB.url); // connect to our database
 
 
@@ -17,7 +18,7 @@ app.use('/node_modules', express.static(__dirname + '/node_modules/'));
 app.use('/views', express.static(__dirname + '/views/'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(morgan('dev')); // log every request to the console
 // Handler for internal server errors
 
 function errorHandler(err, req, res, next) {
