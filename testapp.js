@@ -31,6 +31,10 @@ app.get('/test', function(req, res, next) {
     res.render('index');
 });
 
+app.get('/home', function(req, res, next) {  
+    res.render('home');
+});
+
 app.get('/testDb', function(req, res, next) {  
     Task.find({},function(err, user) {
 			   var data=user;
