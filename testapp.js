@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var Task = require('./app/models/tasks.js');
+var Project = require('./app/models/project.js');
 var configDB = require('./config/database.js');
 var bodyParser     =        require("body-parser");
 var morgan = require('morgan');
@@ -55,8 +56,6 @@ app.get('/task/:id',function(req,res)
  Task.find({_id: req.params.id},function(err, user) {	 
 	   res.json({"data":user});		  
 	});
-
-	
 	
 });
 
@@ -85,6 +84,40 @@ app.post('/addTask',function(req, res){
         }
     });
 });
+
+
+app.post('/project',function(req,res){
+	console.log(req.body);
+	var projectData={
+		name:req.body.name,
+		desc:req.body.desc,
+	};
+	var project=new Project(projectData);
+	project.save(function(err,doc){
+		 if (err || !doc) {
+            throw 'Error';
+        } else {
+            res.json({"data":doc});
+        }		
+	});	
+});
+
+app.get('/project',function(req, res, next){	
+	Project.find({},function(err, doc) {	 
+	   res.json({"data":doc});		  
+	});
+});
+
+app.get('/project/:id',function(req,res)
+{
+ Project.find({_id: req.params.id},function(err, doc){	 
+	   res.json({"data":doc});		  
+	});
+	
+});
+
+
+
 
 
 

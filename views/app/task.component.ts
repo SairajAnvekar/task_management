@@ -95,7 +95,7 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 export class TaskComponent implements OnInit {
 	title="Tasks";
 	errorMessage: string;
-	task: Task ={
+	task1: Task ={
 					id: 1,
 					name: 'Build App',
 					 piority:1
@@ -112,6 +112,11 @@ export class TaskComponent implements OnInit {
 		dragulaService.dropModel.subscribe((value:any) => {
 		this.onDropModel(value.slice(1));
 
+		});
+		
+		dragulaService.drop.subscribe((value) => {
+		//let [bagName, e, el] = value;
+	
 		});
    
   }
