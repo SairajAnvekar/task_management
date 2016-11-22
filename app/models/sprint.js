@@ -3,20 +3,20 @@ var mongoose = require('mongoose');
 var SprintSchema = new mongoose.Schema({
     name: { type: String , trim: true},
 	projectId:{ type: String },
-	status:{type: String}
-	tasks:[
+	status:{type: String},
+	tasks:[{
 		name:{type:String ,   trim: true},
 		priority:{type:Number},
 		desc:{type:String},
 		status:{type:String},
-	],
-	deployment:[
-	   name:{type:string},
-	   tasks:[
+	}],
+	deployment:[{
+	   name:{type:String},
+	   tasks:[{
 	     taskId:{type:String}
-	   ]
+	   }]
 	
-	]
+	}]
 	
 });
 

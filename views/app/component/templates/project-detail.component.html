@@ -10,8 +10,8 @@
    	<div>
 	<label>sprint</label> 
 	<input #name />
-	<input #status />
-	<button >
+	<input #status />	
+	<button (click)="create(name.value,status.value)" >
 	Add
 	</button>
 	</div>

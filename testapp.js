@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var Task = require('./app/models/tasks.js');
 var Project = require('./app/models/project.js');
+var Sprint = require('./app/models/sprint.js');
 var configDB = require('./config/database.js');
 var bodyParser     =        require("body-parser");
 var morgan = require('morgan');
@@ -116,6 +117,24 @@ app.get('/project/:id',function(req,res)
 	
 });
 
+
+
+app.post('/sprint',function(req,res){
+	console.log(req.body);
+	var sprintData={
+		name:req.body.name,
+		status:req.body.status,
+		projectId:req.body.projectId
+	};
+	var sprint=new Sprint(sprintData);
+	sprint.save(function(err,doc){
+		 if (err || !doc) {
+            throw 'Error';
+        } else {
+            res.json({"data":doc});
+        }		
+	});	
+});
 
 
 
