@@ -1,0 +1,81 @@
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <!-- load fontawesome -->
+    <link rel="stylesheet" href="./stylesheets/style.css">
+      <link rel="stylesheet" href="./stylesheets/contactstyle.css">
+        <link rel="stylesheet" href="bootstrap/css/animate.css">
+
+</head>
+
+<body>
+    <div class="wrapper" style="background: linear-gradient(-45deg, #66cdcc 0%, #336799 100%); ">
+   
+    <div class="container" >
+
+        <div class="col-sm-5 col-sm-offset-3   animated bounceInDown " style="margin-top:25px; position:relative" id="signupform">
+            
+            <div class="col-sm-9  col-sm-offset-1 color-grey">
+            <h1 class="col-sm-offset-3 " > Signup</h1>
+
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger">
+                    <%= message %>
+                </div>
+                <% } %>
+
+                    <!-- LOGIN FORM -->
+
+                    <form action="/signup" method="post">
+
+                         <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name="fname">
+                        </div>
+                         <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="lname">
+                        </div>
+                        <div class="form-group">
+                            <label>User Id</label>
+                            <input type="text" class="form-control" name="userid">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" class="form-control" name="phno">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg">Signup</button>
+                    </form>
+                    </div>
+            <div class="col-md-10 col-md-offset-5 color-grey">
+                    <p>Already have an account? <a href="/login">Login</a></p>
+                    <p>Or go <a href="/">home</a>.</p>
+            </div>
+
+        </div>
+
+    </div>
+        <div class="footer col-xs-12">
+    Â© Copyright 2015 Polling Application. All Rights Reserved.
+    </div>
+        </div>
+
+</body>
+
+</html>

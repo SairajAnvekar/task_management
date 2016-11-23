@@ -18,6 +18,7 @@ import 'rxjs/add/operator/switchMap';
 	})
 export class ProjectDetailComponent implements OnInit { 
       project:Project;
+	  sprints:any;
 	  errorMessage :string;
 	constructor(
 	  private projectService: ProjectService, 
@@ -27,25 +28,35 @@ export class ProjectDetailComponent implements OnInit {
 	) {}
 	
 	ngOnInit(): void {	
+	        var id;
 			this.route.params.forEach((params: Params) => {
-			 var id = params['id'];
+		    id = params['id'];
 			this.projectService.getProject(id).subscribe(
 			project1 =>{this.project=project1[0];console.log(project1[0])},
 			error =>  this.errorMessage = <any>error
 		);
 			
 			});
+			
+		this.getTasksOb(id)	;
 	  console.log("data"); 
 	  console.log(this.project);	  
 	}
 
-	create(name: string,status: string): void {	
-
+	create(name: string,status: string): void {
 	this.sprintService.createSprint(name,status,this.project._id)
 						 .subscribe(
 						   project  =>console.log(project),
 						   error =>  this.errorMessage = <any>error);
 	}
+	
+	getTasksOb(projectid) {
+		this.sprintService.getProjectSprint(projectid).subscribe(
+	sprints =>{this.sprints = sprints;console.log("data");console.log(this.sprints)},
+			error =>  this.errorMessage = <any>error
+		);
+	}
+	
 	
 	
 	

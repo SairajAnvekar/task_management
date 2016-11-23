@@ -10,6 +10,7 @@ import { HttpModule }    from '@angular/http';
 import { Dragula } from 'ng2-dragula/ng2-dragula';
 import {ProjectComponent }   from './component/project.component';
 import {ProjectDetailComponent }   from './component/project-detail.component';
+import {LocationStrategy, HashLocationStrategy}  from '@angular/common';
 
 @NgModule({
 imports:[
@@ -39,6 +40,7 @@ imports:[
   
   ],
   declarations: [AppComponent,TaskComponent , TaskDetailComponent , DashboardComponent,Dragula,ProjectComponent,ProjectDetailComponent],
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [ AppComponent ], 
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
 })
 export class AppModule { }

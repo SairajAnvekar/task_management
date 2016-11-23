@@ -155,7 +155,7 @@ export class TaskComponent implements OnInit {
 	
 	getTasksOb() {
 		this.taskService.getTaskApi().subscribe(
-			tasks => this.tasks = tasks,
+			tasks => {this.tasks = tasks,console.log(this.tasks)},
 			error =>  this.errorMessage = <any>error
 		);
 	}
