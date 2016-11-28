@@ -20,6 +20,7 @@ export class ProjectDetailComponent implements OnInit {
       project:Project;
 	  sprints:any;
 	  errorMessage :string;
+	  currentSprint:any;
 	constructor(
 	  private projectService: ProjectService, 
 	  private sprintService: SprintService,
@@ -57,8 +58,19 @@ export class ProjectDetailComponent implements OnInit {
 		);
 	}
 	
+	onSelect(sprint: any): void {
+		this.currentSprint = sprint;		
+	}
 	
-	
+	addTask(name: string,status: string ): void {
+		name = name.trim();		
+
+		this.sprintService.addTask(name,status,this.currentSprint._id)
+				 .subscribe(
+				   task  =>console.log(task),
+				   error =>  this.errorMessage = <any>error);
+
+	}
 	
 	
 	

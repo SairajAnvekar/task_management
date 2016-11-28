@@ -16,7 +16,21 @@
 	</button>
 	</div>
 	<div>
-	  <li *ngFor="let sprint of sprints; let i = index"  >   
+	  <li *ngFor="let sprint of sprints; let i = index" (click)="onSelect(sprint)" >   
 		{{sprint.name}}
       </li>
+
+	  <div *ngIf="currentSprint">	  
+	  {{currentSprint | json}}
+	  
+	  
+	<div>
+		<label>task</label> 
+		<input #name />
+		<input #status />	
+		<button (click)="addTask(name.value,status.value)" >
+		Add
+		</button>
+	</div>
+	  </div>
 	</div>
