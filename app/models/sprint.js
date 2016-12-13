@@ -4,12 +4,7 @@ var SprintSchema = new mongoose.Schema({
     name: { type: String , trim: true},
 	projectId:{ type: String },
 	status:{type: String},
-	tasks:[{
-		name:{type:String ,   trim: true},
-		priority:{type:Number},
-		desc:{type:String},
-		status:{type:String},
-	}],
+	tasks:[{type: String}],
 	deployment:[{
 	   name:{type:String},
 	   tasks:[{

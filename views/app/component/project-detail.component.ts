@@ -1,4 +1,4 @@
-import { Component ,OnInit } from '@angular/core';
+import { Component ,OnInit,Input } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { SprintService } from '../services/sprint.service';
 import { Http, Response } from '@angular/http';
@@ -17,6 +17,7 @@ import 'rxjs/add/operator/switchMap';
 
 	})
 export class ProjectDetailComponent implements OnInit { 
+    
       project:Project;
 	  sprints:any;
 	  errorMessage :string;
@@ -39,7 +40,7 @@ export class ProjectDetailComponent implements OnInit {
 			
 			});
 			
-		this.getTasksOb(id)	;
+	   this.getTasksOb(id)	;
 	  console.log("data"); 
 	  console.log(this.project);	  
 	}
@@ -49,6 +50,7 @@ export class ProjectDetailComponent implements OnInit {
 						 .subscribe(
 						   project  =>console.log(project),
 						   error =>  this.errorMessage = <any>error);
+	this.getTasksOb(this.project._id);
 	}
 	
 	getTasksOb(projectid) {
@@ -71,6 +73,9 @@ export class ProjectDetailComponent implements OnInit {
 				   error =>  this.errorMessage = <any>error);
 
 	}
+	
+	
+
 	
 	
 	

@@ -19,6 +19,12 @@ private appUrl= 'sprint';  // URL to web API
 	getProjectSprint(projectId): Observable<any[]> {
 		return this.http.get(this.appUrl+'/'+projectId).map(this.extractData).catch(this.handleError);
 	}
+	
+	
+	
+	getSprintDetails(sprintId): Observable<any[]> {
+		return this.http.get('api/sprint/'+sprintId).map(this.extractData).catch(this.handleError);
+	}
 		
 	createSprint (name: string ,status:string,projectId:string): Observable<any> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });

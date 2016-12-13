@@ -7,16 +7,18 @@ import { AppComponent }        from './app.component';
 import { RouterModule }   from '@angular/router';
 import { DashboardComponent }   from './dashboard.component';
 import { HttpModule }    from '@angular/http';
-import { Dragula } from 'ng2-dragula/ng2-dragula';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import {ProjectComponent }   from './component/project.component';
 import {ProjectDetailComponent }   from './component/project-detail.component';
 import {LocationStrategy, HashLocationStrategy}  from '@angular/common';
-
+import { TaskDetailComponent1 } from './component/task-detail.component';
+import { TaskComponent1 } from './component/task.component';
 @NgModule({
 imports:[
 	BrowserModule, 
 	FormsModule,
 	HttpModule,
+    DragulaModule,
 	RouterModule.forRoot([
 	   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 		{
@@ -39,7 +41,7 @@ imports:[
 	])
   
   ],
-  declarations: [AppComponent,TaskComponent , TaskDetailComponent , DashboardComponent,Dragula,ProjectComponent,ProjectDetailComponent],
+  declarations: [AppComponent,TaskComponent ,TaskComponent1, TaskDetailComponent,TaskDetailComponent1 , DashboardComponent,ProjectComponent,ProjectDetailComponent],
   bootstrap:    [ AppComponent ], 
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
 })

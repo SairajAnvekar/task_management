@@ -8,7 +8,7 @@ var bodyParser     =        require("body-parser");
 var morgan = require('morgan');
 var passport = require('passport');
 var flash = require('connect-flash');
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect('mongodb://localhost/projectManagement'); // connect to our database
 var session = require('express-session');
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -65,22 +65,40 @@ app.get('/testDb', function(req, res, next) {
 
 app.get('/tasks',function(req, res, next){
  Task.find({},function(err, user) {	 
-	   res.json({"data":user});		  
+	   res.json({"data":user});
+	   
  });
 
 });
 
+
+app.get('/tasks/sprint/:id',function(req,res)
+{
+ Task.find({id: req.params.id},function(err, task) {	 
+	   res.json({"data":task});		  
+	});
+	
+});
+
+
 app.get('/task/:id',function(req,res)
 {
  Task.find({_id: req.params.id},function(err, user) {	 
-	   res.json({"data":user});		  
+	   res.json({"data":user});	
+
+	   
 	});
 	
 });
 
 app.delete('/task/:id',function(req,res){
-	 Task.remove({_id: req.params.id},function(err, user) {	 
-	   res.json({"data":user});		  
+	 Task.remove({_id: req.params.id},function(err, user) {	 	 
+       console.log(req.params.id);
+	   
+	   Sprint.update({tasks:req.params.id},{ $pullAll: {tasks: [req.params.id] }},function(err, user) {
+		   
+		    res.json({"data":user});	
+	   });	  	  
 	});
 });
 
@@ -88,6 +106,7 @@ app.delete('/task/:id',function(req,res){
 
 app.post('/addTask',function(req, res){
 	console.log(req.body);
+	var sprintId=req.body._id;
 	   TaskObj = {
            id:req.body._id,
 		   priority:1,
@@ -101,6 +120,20 @@ app.post('/addTask',function(req, res){
         } else {
             res.json({"data":doc});
         }
+		 
+		 sprintTask={
+			 taskId:doc._id,
+		 };
+		Sprint.update({_id:sprintId}, {$push: {tasks:doc._id}}, function(err){
+		if(err){
+				console.log(err);
+		}else{
+				console.log("Successfully added");
+		}
+		
+	});
+		
+		
     });
 });
 

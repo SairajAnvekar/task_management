@@ -24,7 +24,7 @@
 	  {{currentSprint | json}}
 	  
 	  
-	<div>
+	<div style="display:none">
 		<label>task</label> 
 		<input #name />
 		<input #status />	
@@ -32,5 +32,9 @@
 		Add
 		</button>
 	</div>
+	
+	<my-tasks1 [sprint]="currentSprint"> loading  </my-tasks1>
+	
+	
 	  </div>
 	</div>

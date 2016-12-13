@@ -11,10 +11,17 @@ router.get('/',function(req,res,next) {
 
 router.get('/sprint/:id',function(req,res,next) {   
       Sprint.find({_id: req.params.id},function(err, doc){	 
-	   res.json({"data":doc});		  
+	   res.json({"data":doc});
+       console.log("eeeeeeeeeeeeeeeeeeeeee");	   
 	});
 });
- 
+
+
+ router.get('/sprint5',function(req,res,next) { 
+           console.log("eeeeeeeeeeeeeeeeeeeeee")	   
+	});
+
+
  router.post('/addTask',function(req, res, next){
 	   TaskObj = {          
 		   priority:1,
@@ -23,6 +30,15 @@ router.get('/sprint/:id',function(req,res,next) {
         };
 		
 	var sprintId=req.body.sId
+	
+	Sprint.update({_id:sprintId}, {$push: {tasks: TaskObj}}, {upsert:true}, function(err){
+		if(err){
+				console.log(err);
+		}else{
+				console.log("Successfully added");
+		}
+	});
+	
 	Sprint.find({_id:sprintId},function(err, sprint){
        	   res.json({"data":sprint});	
 	});

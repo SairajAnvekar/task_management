@@ -1,0 +1,41 @@
+<h1>{{title}}</h1> 
+  
+  
+  
+   {{sprint | json}}
+	<div>
+	<label>Hero name:</label> 
+	<input #taskname />
+	<input #taskId />
+	<input #taskPiority />
+	<button (click)="add(taskname.value,taskId.value,taskPiority.value); taskname.value='' ">
+	Add
+	</button>
+	</div>
+  
+	<ul class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
+      <li *ngFor="let task of tasks; let i = index"  (click)="onSelect(task)" >
+        <span class="badge">{{i+1}}</span> {{task.name}}
+		<button class="delete" (click)="delete(task); $event.stopPropagation()">x</button>
+      </li>
+    </ul>
+	test
+	<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
+      <li *ngFor="let task of sprintTask; let i = index"   >
+       <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	</div>	
+      </li>
+    </ul>
+	
+	<div>
+	
+	{{sprintTask | json}}
+	map
+	{{mapTasks | json }}
+
+	
+	 <div class='container'>
+            <pre>{{tasks | json}}</pre>
+        </div>
+		
+		
+  <task-detail1 [task]="selectedTask"></task-detail1>
