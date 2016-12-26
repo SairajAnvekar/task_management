@@ -47,7 +47,7 @@ app.get('/test', function(req, res, next) {
 });
 
 app.get('/home', function(req, res, next) {  
-    res.render('home');
+    res.render('index1');
 });
 
 app.get('/home2', function(req, res, next) {  
@@ -137,6 +137,23 @@ app.post('/addTask',function(req, res){
     });
 });
 
+app.post('/updateTaskPos',function(req, res){
+	
+	var sprintId=req.body._id;
+	var pos=req.body.pos;
+	var taskId=req.body.tid;
+	 Sprint.update({tasks:taskId},{ $pullAll: {tasks: [taskId] }},function(err, doc) {  
+
+		Sprint.update({ _id:sprintId },{$push: {tasks: {$each: [taskId], $position: pos}}},function(err, doc) {
+			
+			 res.json({"data":doc});
+			
+		})
+			
+	   });	
+
+	
+});
 
 app.post('/project',function(req,res){
 	console.log(req.body);

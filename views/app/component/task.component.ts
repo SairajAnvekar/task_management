@@ -107,11 +107,21 @@ export class TaskComponent1 implements OnInit {
 	
 	
 	private onDropModel(args:any):void {
-		let [el, target, source] = args;
-		console.log('onDropModel:');
-		console.log(el);
+		let [el, target, source] = args;		
+	    var tid=el.querySelector('.tid').value;
+		var idx=this.sprintTask.indexOf(tid);		
+		
+		console.log(idx);
+		console.log(this.sprint._id);
 		console.log(target);
 		console.log(source);
+		this.taskService.updateTaskPosition(this.sprint._id,tid,idx)
+					 .subscribe(
+					   task  =>{						   
+							console.log(task);
+							},
+					   error =>  this.errorMessage = <any>error);
+		
 	}
 	
 	

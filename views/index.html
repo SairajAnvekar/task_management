@@ -12,17 +12,43 @@
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
-	
+	<link href="/css/bootstrap.css" rel="stylesheet">
+
+      <!-- Bootstrap Core CSS -->
+    <link href="views/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="views/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="views/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="views/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 	
     <!-- 2. Configure SystemJS -->
     <script src="views/systemjs.config.js"></script>
     <script>
-      System.import('views/app/main.js').catch(function(err){ console.error(err); });
+      System.import('app').catch(function(err){ console.error(err); });
     </script>
   </head>
   <!-- 3. Display the application -->
   <body>
-  test1
+
     <my-app>Loading...</my-app>
   </body>
+  
+  
+  
+    <script src="views/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="views/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="views/js/plugins/morris/raphael.min.js"></script>
+    <script src="views/js/plugins/morris/morris.min.js"></script>
+    <script src="views/js/plugins/morris/morris-data.js"></script>
+
 </html>

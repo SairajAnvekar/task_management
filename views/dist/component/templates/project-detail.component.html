@@ -1,0 +1,40 @@
+<h1>Details</h1>
+    <div *ngIf="project">
+	{{project.name}}
+	{{project.desc}}
+	{{project._id}}
+	</div>
+	
+	
+<h2>create sprint</h2>	
+   	<div>
+	<label>sprint</label> 
+	<input #name />
+	<input #status />	
+	<button (click)="create(name.value,status.value)" >
+	Add
+	</button>
+	</div>
+	<div>
+	  <li *ngFor="let sprint of sprints; let i = index" (click)="onSelect(sprint)" >   
+		{{sprint.name}}
+      </li>
+
+	  <div *ngIf="currentSprint">	  
+	  {{currentSprint | json}}
+	  
+	  
+	<div style="display:none">
+		<label>task</label> 
+		<input #name />
+		<input #status />	
+		<button (click)="addTask(name.value,status.value)" >
+		Add
+		</button>
+	</div>
+	
+	<my-tasks1 [sprint]="currentSprint"> loading  </my-tasks1>
+	
+	
+	  </div>
+	</div>
