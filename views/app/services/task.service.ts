@@ -48,10 +48,10 @@ private heroesUrl = 'tasks';  // URL to web API
 	}	
 
 		
-	updateTaskPosition (_id: string ,tid: string, pos:number): Observable<Task> {
+	updateTaskPosition (_id: string ,tid: string, pos:number,posOfWorking,posOfStage,posOfProd): Observable<Task> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });     
-		return this.http.post('updateTaskPos', {_id ,tid,pos}, options)
+		return this.http.post('updateTaskPos', {_id ,tid,pos,posOfWorking,posOfStage,posOfProd}, options)
 				.map(this.extractData)
 			.catch(this.handleError);
 	}

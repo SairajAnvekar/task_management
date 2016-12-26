@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'my-project',
   template: `
-   <h1>Project Management</h1>
+   <h1>Project Management1s</h1>
    	<div>
 	<label>Project</label> 
 	<input #name />
@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 	<ul class="projects"  >
 		<li *ngFor="let project of projects; let i = index"  (click)="onSelect(project)" >
 			<span class="badge">{{i+1}}</span> 
-				{{project.desc}}
+				{{project.name}}
 		</li>
 	</ul>
 	

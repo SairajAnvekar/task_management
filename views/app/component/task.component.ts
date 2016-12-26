@@ -66,6 +66,13 @@ import { SprintService } from '../services/sprint.service';
 		background-color: gray !important;
 		color:white;
 	}
+	
+	.taskslist
+	{
+		border:1px solid;
+		width:100px;
+		min-height:100px;
+	}
   `],
   	viewProviders: [DragulaService],
     providers: [TaskService]
@@ -79,6 +86,10 @@ export class TaskComponent1 implements OnInit {
 	sprintUpadated:any;
 	errorMessage: string;
 	sprintTask=[];
+	workingTask=[];
+	stageTask=[];
+	prodTask=[];
+	
 	task1: Task ={
 					id: 1,
 					name: 'Build App',
@@ -102,20 +113,25 @@ export class TaskComponent1 implements OnInit {
 		//let [bagName, e, el] = value;
 	
 		});
-   
+		
+	
   }
 	
 	
 	private onDropModel(args:any):void {
 		let [el, target, source] = args;		
 	    var tid=el.querySelector('.tid').value;
-		var idx=this.sprintTask.indexOf(tid);		
+		var idxOfTask=this.sprintTask.indexOf(tid);		
+		var  idxOfWorking=this.workingTask.indexOf(tid);
+		var  idxOfStage=this.stageTask.indexOf(tid);
+		var  idxOfProd=this.prodTask.indexOf(tid);
 		
-		console.log(idx);
+		
+		
 		console.log(this.sprint._id);
 		console.log(target);
 		console.log(source);
-		this.taskService.updateTaskPosition(this.sprint._id,tid,idx)
+		this.taskService.updateTaskPosition(this.sprint._id,tid,idxOfTask,idxOfWorking,idxOfStage,idxOfProd)
 					 .subscribe(
 					   task  =>{						   
 							console.log(task);
@@ -180,10 +196,7 @@ export class TaskComponent1 implements OnInit {
 	  tasks1 => {
 				
 				 delete this.mapTasks[task._id];
-				 var idx = this.sprintTask.indexOf(task._id);
-				if (idx != -1) {
-				   this.sprintTask.splice(idx, 1); // The second parameter is the number of elements to remove.
-				}
+				 this.deleteFromArray(task);
 				
 				console.log(this.sprintTask);
 				
@@ -196,18 +209,39 @@ export class TaskComponent1 implements OnInit {
 	
 	
 	
+	deleteFromArray(task)
+	{
+		var idx = this.sprintTask.indexOf(task._id);
+				if (idx != -1) {
+				   this.sprintTask.splice(idx, 1); // The second parameter is the number of elements to remove.
+				} 
+		idx = this.workingTask.indexOf(task._id);
+				if (idx != -1) {
+				   this.workingTask.splice(idx, 1); // The second parameter is the number of elements to remove.
+				} 
+		idx = this.stageTask.indexOf(task._id);
+				if (idx != -1) {
+				   this.stageTask.splice(idx, 1); 
+				}
+		idx = this.prodTask.indexOf(task._id);
+				if (idx != -1) {
+				   this.prodTask.splice(idx, 1); 
+				}		
+	}
+	
+	
 	getSprintDetails(_id)
 	{
 		this.sprintService.getSprintDetails(_id).subscribe(
 		
-		sprint=>{this.sprintUpadated=sprint;
+			sprint=>{this.sprintUpadated=sprint;		
+				this.sprintTask=sprint[0].tasks;
+				this.workingTask=sprint[0].working;
+				this.stageTask=sprint[0].stage;
+				this.prodTask=sprint[0].prod;		  
+			  }
 		
-		
-		  this.sprintTask=sprint[0].tasks;
-		  
-		  }
-		
-							);
+		);
 	}
 	
 	
