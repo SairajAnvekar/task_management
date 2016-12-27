@@ -37,26 +37,40 @@
             <pre>{{tasks | json}}</pre>
         </div> -->
 		{{workingTask | json}}
-		<div class="taskslist" id="tasks" [dragula]='"deploy"'  [dragulaModel]='sprintTask'> 
-			<li *ngFor="let task of sprintTask; let i = index"   >
-			<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
-			</li>		
+		{{stageTask | json}}
+		{{prodTask | json}}
+		<div class="row">
+		<div class="col-md-3" >
+		<h2> Tasks</h2>
+			<div class="taskslist " id="tasks" [dragula]='"deploy"'  [dragulaModel]='sprintTask'> 
+				<li *ngFor="let task of sprintTask; let i = index"   >
+				<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+				</li>		
+			</div>
 		</div>
-		
-		<div   class="taskslist"  id="workingTask" [dragula]='"deploy"'  [dragulaModel]='workingTask'> 
+		<div class="col-md-3" >
+		<h2> Working</h2>
+		<div   class="taskslist "  id="workingTask" [dragula]='"deploy"'  [dragulaModel]='workingTask'> 
 			<li *ngFor="let task of workingTask; let i = index"   >
 			<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
 		</div>
-		
-		<div   class="taskslist"   id="stageTask" [dragula]='"deploy"'  [dragulaModel]='stageTask'> 
-			<li *ngFor="let task of stageTask; let i = index"   >
-			<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
 		</div>
 		
-		<div  class="taskslist"    id="prodTask" [dragula]='"deploy"'  [dragulaModel]='prodTask'> 
-			<li *ngFor="let task of prodTask; let i = index"   >
-			<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+		<div class="col-md-3" >
+			<h2> Stage</h2>
+			<div   class="taskslist "   id="stageTask" [dragula]='"deploy"'  [dragulaModel]='stageTask'> 
+				<li *ngFor="let task of stageTask; let i = index"   >
+				<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+			</div>
 		</div>
 		
+		<div class="col-md-3" >
+			<h2> Production</h2>
+			<div  class="taskslist "    id="prodTask" [dragula]='"deploy"'  [dragulaModel]='prodTask'> 
+				<li *ngFor="let task of prodTask; let i = index"   >
+				<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+			</div>
+		</div>
+		</div>
 		
  <!-- <task-detail1 [task]="selectedTask"></task-detail1>-->

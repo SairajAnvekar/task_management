@@ -69,8 +69,7 @@ import { SprintService } from '../services/sprint.service';
 	
 	.taskslist
 	{
-		border:1px solid;
-		width:100px;
+		border:1px solid;		
 		min-height:100px;
 	}
   `],
