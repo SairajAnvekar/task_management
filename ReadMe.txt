@@ -7,3 +7,5 @@ install manualy
 	'ticky':
 	'crossvent': 
 	'custom-event'
+
+	change user
