@@ -95,9 +95,26 @@ app.delete('/task/:id',function(req,res){
 	 Task.remove({_id: req.params.id},function(err, user) {	 	 
        console.log(req.params.id);
 	   
-	   Sprint.update({tasks:req.params.id},{ $pullAll: {tasks: [req.params.id] }},function(err, user) {
-		   
-		    res.json({"data":user});	
+	   Sprint.update({tasks:req.params.id},{ $pullAll: {tasks: [req.params.id] }},function(err, user) {		   
+		    
+             
+			Sprint.update({working:req.params.id},{ $pullAll: {working: [req.params.id] }},function(err, task) {
+
+				
+				Sprint.update({stage:req.params.id},{ $pullAll: {stage: [req.params.id] }},function(err, task) {
+
+					Sprint.update({prod:req.params.id},{ $pullAll: {prod: [req.params.id] }},function(err, task) {
+
+						res.json({"data":task});
+
+					});	
+
+				});	
+
+			});	
+				
+
+			
 	   });	  	  
 	});
 });
