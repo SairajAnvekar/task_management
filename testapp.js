@@ -124,11 +124,14 @@ app.delete('/task/:id',function(req,res){
 app.post('/addTask',function(req, res){
 	console.log(req.body);
 	var sprintId=req.body._id;
+	var desc=req.body.desc;
+	var type=req.body.type;
 	   TaskObj = {
            id:req.body._id,
-		   priority:1,
+		   priority:req.body.pri,
 		   name:req.body.name,
-		 
+		   description:desc,
+		   type:type,
         };
 	var task= new Task(TaskObj)
 	task.save(function (err, doc) {
@@ -324,7 +327,7 @@ app.use('/api/',taskApi);
 
 app.use(errorHandler);
 
-var server = app.listen(3001, function() {
+var server = app.listen(3000, function() {
     var port = server.address().port;
     console.log('Express server listening on port %s.', port);
 });

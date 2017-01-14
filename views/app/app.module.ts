@@ -13,12 +13,14 @@ import {ProjectDetailComponent }   from './component/project-detail.component';
 import {LocationStrategy, HashLocationStrategy}  from '@angular/common';
 import { TaskDetailComponent1 } from './component/task-detail.component';
 import { TaskComponent1 } from './component/task.component';
+import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 @NgModule({
 imports:[
 	BrowserModule, 
 	FormsModule,
 	HttpModule,
     DragulaModule,
+	Ng2DatetimePickerModule,
 	RouterModule.forRoot([
 	   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 		{

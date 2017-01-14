@@ -31,6 +31,11 @@
 		'ticky': 'node_modules/ticky',
 		'crossvent': 'node_modules/crossvent/src',
 		'custom-event': 'node_modules/custom-event',
+		'ng2-datepicker': 'node_modules/ng2-datepicker',
+		'ng2-slimscroll': 'node_modules/ng2-slimscroll',
+		'moment': 'node_modules/moment',
+		'ng2-datetime-picker': 'node_modules/ng2-datetime-picker/dist',
+		
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -52,7 +57,12 @@
 	'ticky': {main: 'ticky.js', defaultExtension: 'js'},
 	'crossvent': {main: 'crossvent.js', defaultExtension: 'js'},
 	'custom-event': {main: 'index.js', defaultExtension: 'js'},
+	'ng2-datepicker': {main: 'ng2-datepicker.js', defaultExtension: 'js'},
+	'ng2-slimscroll': {main: 'ng2-slimscroll.js', defaultExtension: 'js'},
+	'moment': {main: 'moment.js', defaultExtension: 'js'},
+	'ng2-datetime-picker': {main: 'ng2-datetime-picker.umd.js', defaultExtension: 'js'},
 	  
-    }
+    }	
+	
   });
 })(this);

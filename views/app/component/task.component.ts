@@ -9,70 +9,11 @@ import { SprintService } from '../services/sprint.service';
 @Component({
   selector: 'my-tasks1',
   templateUrl: 'views/app/component/templates/task.component.html',  
-  
-	 styles: [`
-    .selected {
-      background-color: #CFD8DC !important;
-      color: white;
-    }
-    .tasks {
-      margin: 0 0 2em 0;
-      list-style-type: none;
-      padding: 0;
-      width: 15em;
-    }
-    .tasks li {
-      cursor: pointer;
-      position: relative;
-      left: 0;
-      background-color: #EEE;
-      margin: .5em;
-      padding: .3em 0;
-      height: 1.6em;
-      border-radius: 4px;
-    }
-    .tasks li.selected:hover {
-      background-color: #BBD8DC !important;
-      color: white;
-    }
-    .tasks li:hover {
-      color: #607D8B;
-      background-color: #DDD;
-      left: .1em;
-    }
-    .tasks .text {
-      position: relative;
-      top: -3px;
-    }
-    .tasks .badge {
-      display: inline-block;
-      font-size: small;
-      color: white;
-      padding: 0.8em 0.7em 0 0.7em;
-      background-color: #607D8B;
-      line-height: 1em;
-      position: relative;
-      left: -1px;
-      top: -4px;
-      height: 1.8em;
-      margin-right: .8em;
-      border-radius: 4px 0 0 4px;
-    }
+   styleUrls: [
+        'views/app/component/templates/css/style.css',      
+    ],	
 	
-	button.delete {
-		float:right;
-		margin-top: 2px;
-		margin-right: .8em;
-		background-color: gray !important;
-		color:white;
-	}
-	
-	.taskslist
-	{
-		border:1px solid;		
-		min-height:100px;
-	}
-  `],
+
   	viewProviders: [DragulaService],
     providers: [TaskService]
 })
@@ -169,10 +110,10 @@ export class TaskComponent1 implements OnInit {
 		);
 	}
 	
-	add(name: string,_id: string ,pri:number): void {
+	add(name: string,_id: string ,pri:number,desc:string,type:string): void {
 	   name = name.trim();		
         _id=this.sprint._id;
-			this.taskService.addTask(name,_id,pri)
+			this.taskService.addTask(name,_id,pri,desc,type)
 					 .subscribe(
 					   task  =>{						   
 							this.sprintTask.push(task['_id']);						
@@ -256,6 +197,9 @@ export class TaskComponent1 implements OnInit {
 			this.mapTasks[tasks[i]._id]={
 				'_id':tasks[i]._id,
 				'name':tasks[i].name,
+				'desc':tasks[i].description,
+				'type':tasks[i].type,
+				'priority':tasks[i].priority,			
 				
 			}		
 			

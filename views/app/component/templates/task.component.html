@@ -1,33 +1,68 @@
+
 <h1>{{title}}</h1> 
-  
-  
-  
+     
    {{sprint | json}}
+   task
+   {{tasks | json}}
 	<div>
-	<label>Task name:</label> 
-	<input #taskname />
-	<input #taskId />
-	<input #taskPiority />
-	<button (click)="add(taskname.value,taskId.value,taskPiority.value); taskname.value='' ">
+<label>Task name:</label>
+<div class="form-style-5">	
+<fieldset>
+<legend><span class="number">1</span> Task </legend>
+<input type="text" name="field1" placeholder="Task Name" #taskname>
+<label for="type">Piority:</label>
+<select id="type" name="field4" #taskPiority>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+</select>
+
+<textarea name="field3" placeholder="Description of task" #taskDesc></textarea>
+<label for="job">Type:</label>
+<select id="job" name="field4" #taskType>
+<optgroup label="Devloping">
+	<option value="devloping">Devloping</option>
+	<option value="testing">Testing</option>
+</optgroup>
+<optgroup label="Testing">
+	<option value="Testing">Testing</option>
+</optgroup>
+</select>      
+</fieldset>
+
+<fieldset>
+<legend><span class="number">2</span> Date</legend>
+<input class="date" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true" />
+<input class="date" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true" />
+
+</fieldset>
+
+
+	<button (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
 	Add
 	</button>
+</div>
+
+	
 	</div>
   
 	<ul class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
       <li *ngFor="let task of tasks; let i = index"  (click)="onSelect(task)" >
-        <span class="badge">{{i+1}}</span> {{task.name}}
+        <span class="badge">{{i+1}}</span> {{task.name}}I {{task.description}}I{{task.priority}}
 		<button class="delete" (click)="delete(task); $event.stopPropagation()">x</button>
       </li>
     </ul>
 	test
 	<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
       <li *ngFor="let task of sprintTask; let i = index"   >
-       <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+       <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}} {{mapTasks[task].desc}}{{mapTasks[task].priority}} 	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
       </li>
     </ul>
 	
-	
-	
+	map task
+	{{mapTasks | json }}
+	<br>
 	{{sprintTask | json}}
 	<!--map
 	{{mapTasks | json }}
