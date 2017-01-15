@@ -46,4 +46,23 @@ router.get('/sprint/:id',function(req,res,next) {
 });
 
 
+router.post('/updateTask',function(req,res){
+	var taskId=req.body._id;
+	var reqTask=req.body.task;
+	
+	Task.findById(reqTask._id, function (err, task) {
+		if (err) return handleError(err);
+         
+		task.status=reqTask.status;
+		task.save(function (err, updatedTask) {
+		if (err) return handleError(err);
+		res.json({"data":updatedTask});
+		});
+	});
+	console.log(reqTask);
+
+	
+}
+);
+
 module.exports = router;

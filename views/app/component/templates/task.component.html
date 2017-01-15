@@ -1,9 +1,7 @@
 
 <h1>{{title}}</h1> 
      
-   {{sprint | json}}
-   task
-   {{tasks | json}}
+
 	<div>
 <label>Task name:</label>
 <div class="form-style-5">	
@@ -46,22 +44,88 @@
 
 	
 	</div>
-  
-	<ul class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
-      <li *ngFor="let task of tasks; let i = index"  (click)="onSelect(task)" >
-        <span class="badge">{{i+1}}</span> {{task.name}}I {{task.description}}I{{task.priority}}
-		<button class="delete" (click)="delete(task); $event.stopPropagation()">x</button>
-      </li>
-    </ul>
+	
+	<div class="list-type1">
+<ol>
+<li> <a href="#">Formget Online Form Builder Create Online Forms</a></li>
+<li><a href="#">Formget Online Form Builder Create Online Forms</a></li>
+<li><a href="#">Formget Online Form Builder Create Online Forfddddddddddddddddddddddddddddddddddddddddddddddddms</a></li>
+</ol>
+</div>
+	
+<div class="row">
+<div class="col-md-8"	>
+	<div class="list-type1 ">
+	<div class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
+	  <div *ngFor="let task of tasks; let i = index"   class="list" >	   
+		 <span class="badge">{{i+1}}</span>  <a (click)="onSelect(task)"  >{{task.name}}  </a>  {{task.description}}I{{task.priority}}		
+		 <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+		 <span class="fa fa-trash"  (click)="delete(task); $event.stopPropagation()" aria-hidden="true"></span>		
+	  </div>
+	</div>
+	</div>
+</div>
+<div class="col-md-4">
+<div *ngIf="selectedTask">
+
+		<div class="row">
+		<h2>{{selectedTask.name}}</h2>
+		<hr>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+			Created By <br>
+			Priority:{{selectedTask.priority}}<br>
+			Status:{{selectedTask.status}}<br>
+			</div>
+			<div class="col-md-5">
+			Asign To:{{selectedTask.priority}}<br>
+			</div>
+		</div>
+
+		<div class="row">
+		 Description
+		  {{selectedTask.description}}<br>
+		</div>
+				
+		<hr>
+		<select  [(ngModel)]="selectedTask.status">
+		<option value="not started">Not Started</option>
+		<option value="started">Started</option>
+		<option value="completed">completed</option>
+		</select>
+		Progress
+		 <input type="text" value={{selectedTask.status}} >			
+		</div>	
+       <span (click)="updateTask('1')"> test</span>
+
+</div >
+
+</div>	
+	
 	test
 	<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
-      <li *ngFor="let task of sprintTask; let i = index"   >
+      <li *ngFor="let task of sprintTask; let i = index"  >
        <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}} {{mapTasks[task].desc}}{{mapTasks[task].priority}} 	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
       </li>
     </ul>
 	
+	
+	
+<hr>
+display
+
+
+
+
+
+
+	
+	
 	map task
 	{{mapTasks | json }}
+	<br>
+	<br>
 	<br>
 	{{sprintTask | json}}
 	<!--map

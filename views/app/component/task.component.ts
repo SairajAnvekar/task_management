@@ -55,6 +55,7 @@ export class TaskComponent1 implements OnInit {
 		});
 		
 	
+	
   }
 	
 	
@@ -121,10 +122,29 @@ export class TaskComponent1 implements OnInit {
 							this.mapTasks[task['_id']]={
 															'_id':task['_id'],
 															'name':task['name'],
+															'status':task['status']
 
 							}		
 
 							},
+					   error =>  this.errorMessage = <any>error);
+		     
+		
+		
+	}
+	
+		updateTask(_id: string ): void {
+			
+	    var editTask=this.selectedTask;
+     
+			this.taskService.updateTask(editTask)
+					 .subscribe(
+					   task  =>{this.mapTasks[task['_id']]={
+															'_id':task['_id'],
+															'name':task['name'],
+															'status':task['status']
+
+							};console.log("task");console.log(task)	},
 					   error =>  this.errorMessage = <any>error);
 		     
 		

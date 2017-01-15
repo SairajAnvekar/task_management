@@ -13,7 +13,8 @@ var userSchema = mongoose.Schema({
         lname:String,
         phno:String,
         userid:String,
-        profpic:String
+        profpic:String,
+		position:[{type:String}],
     }
 });
 

@@ -42,6 +42,13 @@ private heroesUrl = 'tasks';  // URL to web API
 					.catch(this.handleError);
 	}	
 		
+	updateTask (task:any): Observable<Task> {
+			let headers = new Headers({ 'Content-Type': 'application/json' });
+			let options = new RequestOptions({ headers: headers });     
+			return this.http.post('api/updateTask', {task}, options)
+						.map(this.extractData)
+						.catch(this.handleError);
+		}		
 		
 	deleteTask(task_id):Observable<Task> {		
 		return this.http.delete('task/' + task_id).map(this.extractData).catch(this.handleError);;
