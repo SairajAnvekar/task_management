@@ -54,6 +54,7 @@ router.post('/updateTask',function(req,res){
 		if (err) return handleError(err);
          
 		task.status=reqTask.status;
+		task.progress=reqTask.progress;
 		task.save(function (err, updatedTask) {
 		if (err) return handleError(err);
 		res.json({"data":updatedTask});

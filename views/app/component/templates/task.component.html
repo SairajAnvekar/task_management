@@ -95,7 +95,13 @@
 		<option value="completed">completed</option>
 		</select>
 		Progress
-		 <input type="text" value={{selectedTask.status}} >			
+		 <input type="text" [(ngModel)]="selectedTask.progress" >
+		<div class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width]="selectedTask.progress+'%'" >
+		  <span class="sr-only">70% Complete</span>
+		</div>
+		</div>
+		 
 		</div>	
        <span (click)="updateTask('1')"> test</span>
 

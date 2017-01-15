@@ -11,7 +11,7 @@ var TaskSchema = new mongoose.Schema({
 	end:{type:String},
 	created_by:{type:String},
 	created_date:{type: Date,default: Date.now},
-	progress:{type: Number}, 
+	progress:{type: Number,default : 0}, 
  	
 });
 
