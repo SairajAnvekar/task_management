@@ -1,0 +1,33 @@
+<div *ngIf="task">
+
+<div class="row">
+<h2>{{task.name}}</h2>
+<hr>
+</div>
+<div class="row">
+	<div class="col-md-5">
+	Created By <br>
+	Priority:{{task.priority}}<br>
+	Status:{{task.status}}<br>
+	</div>
+	<div class="col-md-5">
+	Asign To:{{task.priority}}<br>
+	</div>
+</div>
+
+<div class="row">
+ Description
+  {{task.description}}<br>
+</div>
+		
+<hr>
+<select>
+<option value="not started">Not Started</option>
+<option value="started">Started</option>
+<option value="completed">completed</option>
+</select>
+Progress
+ <input type="text" >			
+		
+</div>		
+	
