@@ -1,5 +1,6 @@
 
 .form-style-5{
+    border: 1px solid rgba(91, 86, 86, 0.33);
     max-width: 500px;
     padding: 10px 20px;
     background: #f4f7f8;
@@ -31,9 +32,8 @@
 .form-style-5 textarea,
 .form-style-5 select ,
 .date
-{
-    font-family: Georgia, "Times New Roman", Times, serif; 
-    border: none;
+{   border: 1px solid rgba(101, 90, 76, 0.55);
+    font-family: Georgia, "Times New Roman", Times, serif;  
     border-radius: 4px;
     font-size: 16px;
     margin: 0;
@@ -75,7 +75,7 @@
     line-height: 30px;
     text-align: center;
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
-    border-radius: 15px 15px 15px 0px;
+    border-radius: 15px 15px 0px 15px;
 }
 
 .form-style-5 input[type="submit"],
@@ -94,6 +94,7 @@
     border: 1px solid #16a085;
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
+	border-radius: 10px;
 }
 .form-style-5 button
 {
