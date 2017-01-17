@@ -42,7 +42,7 @@ function errorHandler(err, req, res, next) {
     res.status(500).render('error_template', { error: err });
 }
 
-app.get('/test', function(req, res, next) {  
+app.get('/test',isLoggedIn,function(req, res, next) {  
     res.render('index');
 });
 
@@ -321,7 +321,15 @@ app.get('/sprint',function(req,res)
 });
 
 
-
+function isLoggedIn(req, res, next) {
+console.log(req.user)
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+ 
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
 
 require('./app/routes/users.js')(app, passport);
 app.use('/', routes);

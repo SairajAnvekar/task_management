@@ -29,7 +29,7 @@ export class TaskComponent1 implements OnInit {
 	workingTask=[];
 	stageTask=[];
 	prodTask=[];
-	
+	activeAdd=true;
 	task1: Task ={
 					id: 1,
 					name: 'Build App',
@@ -230,6 +230,20 @@ export class TaskComponent1 implements OnInit {
 		
 		console.log(this.mapTasks);	
 	}
+	
+	
+	cancel()
+	{		
+		//$('.form-style-5').hide();
+		this.activeAdd=true;
+	}
+	
+	showAdd()
+	{
+		//$('.form-style-5').show();
+		this.activeAdd=false;		
+	}
+	
 	
 	
 	

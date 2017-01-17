@@ -3,10 +3,10 @@
      
 <tabs>
 <tab [tabTitle]="'Tasks'">
-
+<button class="btn btn-primary" (click)="showAdd()" >Add</button>
 		<div>
 		<label>Task name:</label>
-		<div class="form-style-5">	
+		<div [hidden]="activeAdd" class="form-style-5" >	
 		<fieldset>
 		<legend><span class="number">1</span> Task </legend>
 		<input type="text" name="field1" placeholder="Task Name" #taskname>
@@ -42,6 +42,7 @@
 		<button (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
 		Add
 		</button>
+		 <button class="btn btn-primary" (click)="cancel()" >Cancel</button>
 		</div>
 
 
@@ -98,8 +99,9 @@
 			</div>
 			</div>
 			   <span (click)="updateTask('1')"> <button class="btn btn-primary"> Update </button></span>
+			
 			</div>	
-		 
+		
 
 		</div >
 

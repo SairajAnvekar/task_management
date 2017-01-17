@@ -44,7 +44,8 @@ export class ProjectComponent implements OnInit   {
 	}
 	
 	onSelect(project: Project): void {
-		this.selectedProject = project;		
+		this.selectedProject = project;	
+        this.gotoDetail();		
 	}
 	
 	create(name: string,desc: string): void {

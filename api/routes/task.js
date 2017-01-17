@@ -46,6 +46,16 @@ router.get('/sprint/:id',function(req,res,next) {
 });
 
 
+
+
+router.post('/addComments',function(req,res){
+	var taskId=req.body._id;
+     Task.findById(taskId, function (err, task) {
+        var usercomment = task.comments;
+      
+	 }	);
+});
+
 router.post('/updateTask',function(req,res){
 	var taskId=req.body._id;
 	var reqTask=req.body.task;
