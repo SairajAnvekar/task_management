@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
-var express = require('express');
-var Task = require('./app/models/tasks.js');
-var Project = require('./app/models/project.js');
-var Sprint = require('./app/models/sprint.js');
+var mongoose	= 	require('mongoose');
+var express		=	require('express');
+var Task		= 	require('./app/models/tasks.js');
+var Project		=	require('./app/models/project.js');
+var User		= 	require('./app/models/user');
+var Sprint		= 	require('./app/models/sprint.js');
 var configDB = require('./config/database.js');
 var bodyParser     =        require("body-parser");
 var morgan = require('morgan');
@@ -258,11 +259,23 @@ app.post('/updateTaskPos1',function(req, res){
 
 app.post('/project',function(req,res){
 	console.log(req.body);
+	var userId=req.user._id;
+	var name= req.user.fname+" "+req.user.lname
+	var member={
+		name: name,
+		userid : userId,
+        userdp : "no dp"		 
+	 };
+	console.log("userId");
+	console.log(userId);
 	var projectData={
 		name:req.body.name,
 		desc:req.body.desc,
+        createdBy:userId,		
 	};
+
 	var project=new Project(projectData);
+	project.members.push(member);
 	project.save(function(err,doc){
 		 if (err || !doc) {
             throw 'Error';
@@ -272,8 +285,9 @@ app.post('/project',function(req,res){
 	});	
 });
 
-app.get('/project',function(req, res, next){	
-	Project.find({},function(err, doc) {	 
+app.get('/project',function(req, res, next){
+var userId=req.user._id;	
+	Project.find({'members.userid':userId},function(err, doc) {	 
 	   res.json({"data":doc});		  
 	});
 });
@@ -286,6 +300,13 @@ app.get('/project/:id',function(req,res)
 	
 });
 
+app.get('/users',function(req,res)
+{
+ User.find({},function(err, doc){	 
+	   res.json({"data":doc});		  
+	});
+	
+});
 
 
 app.post('/sprint',function(req,res){
