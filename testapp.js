@@ -300,6 +300,23 @@ app.get('/project/:id',function(req,res)
 	
 });
 
+app.put('/addProjectMembers',function(req, res, next){
+	var projectId=req.body._id;
+	var userId=req.body.userId;
+	User.find({_id:userId},function(err,user){
+		var member={
+			name: user.local.fname,
+			userid : user._id,
+			userdp : "no dp"		 
+		 };
+		Project.findOneAndUpdate({_id:projectId}, {$push: {members: member}}, {upsert:true}, function(err,task){
+			res.json({"data":task});			
+		});
+		 
+	});
+});
+
+
 app.get('/users',function(req,res)
 {
  User.find({},function(err, doc){	 

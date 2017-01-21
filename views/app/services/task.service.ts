@@ -62,6 +62,15 @@ private heroesUrl = 'tasks';  // URL to web API
 				.map(this.extractData)
 			.catch(this.handleError);
 	}
+	
+	
+	addTaskComment(_id:string,comment:string): Observable<Task> {
+			let headers = new Headers({ 'Content-Type': 'application/json' });
+			let options = new RequestOptions({ headers: headers });     
+			return this.http.post('api/addComments', {_id,comment}, options)
+						.map(this.extractData)
+						.catch(this.handleError);
+		}	
 		
 		
 		

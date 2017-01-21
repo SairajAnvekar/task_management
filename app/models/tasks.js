@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 
 var commentsSchema =new mongoose.Schema({
-	comment : String,
+	comment  : String,
     userid   : String,
-    userdp : String
+    userdp   : String,
+	userName : String,
 });
 var TaskSchema = new mongoose.Schema({
 	id: { type: String},
@@ -17,7 +18,7 @@ var TaskSchema = new mongoose.Schema({
 	created_by:{type:String},
 	created_date:{type: Date,default: Date.now},
 	progress:{type: Number,default : 0}, 
-	comments:commentsSchema,
+	comments:[commentsSchema],
  	
 });
 

@@ -5,6 +5,11 @@
 	{{project._id}}
 	</div>
 	
+	<select>
+	<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
+		{{user.local.fname}}
+	</option>
+	</select>
 	
 <h2>create sprint</h2>	
    	<div>

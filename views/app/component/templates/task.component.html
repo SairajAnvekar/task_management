@@ -28,7 +28,15 @@
 		<optgroup label="Testing">
 		<option value="bug fix">Bug Fix</option>
 		</optgroup>
-		</select>      
+		</select>   
+
+		 <select>
+		   <option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
+				{{user.local.fname}}
+    		</option>			
+		   
+		 </select>
+		
 		</fieldset>
 
 		<fieldset>
@@ -100,7 +108,17 @@
 			</div>
 			   <span (click)="updateTask('1')"> <button class="btn btn-primary"> Update </button></span>
 			
+			
+			<div class="comments" *ngFor="let comment of selectedTask.comments; let i = index"   >
+		
+			{{comment.comment}}
+			
+			</div>
+			<input type="text" #comment>
+		    <span (click)="addComment(comment.value)"> <button class="btn btn-primary"> post </button></span>
 			</div>	
+			
+		
 		
 
 		</div >

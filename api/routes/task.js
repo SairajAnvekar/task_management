@@ -50,10 +50,19 @@ router.get('/sprint/:id',function(req,res,next) {
 
 router.post('/addComments',function(req,res){
 	var taskId=req.body._id;
-     Task.findById(taskId, function (err, task) {
-        var usercomment = task.comments;
-      
-	 }	);
+    var comment=req.body.comment;
+	var user=req.user;
+	  var comments={
+		  comment:comment,
+		  userid:user._id,
+		  userdp:'ffdgg',
+	  };
+	  
+	 	Task.findOneAndUpdate({_id:taskId}, {$push: {comments: comments}}, {upsert:true}, function(err,task){
+			res.json({"data":task});			
+		});
+	 
+	 
 });
 
 router.post('/updateTask',function(req,res){

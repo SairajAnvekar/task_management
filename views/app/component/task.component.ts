@@ -1,6 +1,7 @@
 import { Component , OnInit,Input} from '@angular/core';
 import {Task} from '../models/task';
 import { TaskService } from '../services/task.service';
+import { UserService } from '../services/user.service';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -15,12 +16,13 @@ import { SprintService } from '../services/sprint.service';
 	
 
   	viewProviders: [DragulaService],
-    providers: [TaskService]
+    providers: [TaskService,UserService]
 })
 export class TaskComponent1 implements OnInit {
 	title="Tasks";
 	@Input()
 	sprint:any;
+	users:any;
 	
 	mapTasks:{[id:string]:any}={};	  
 	sprintUpadated:any;
@@ -37,12 +39,12 @@ export class TaskComponent1 implements OnInit {
 				};
 				
 	tasks:Task[]; 
-	selectedTask: Task;
+	selectedTask: any;
 	onSelect(task: Task): void {
 			this.selectedTask = task;
 		}
 
-    public constructor(private dragulaService:DragulaService,private taskService:TaskService,private sprintService: SprintService,) {
+    public constructor(private dragulaService:DragulaService,private taskService:TaskService,private sprintService: SprintService,private userService: UserService) {
 	  
 		dragulaService.dropModel.subscribe((value:any) => {
 		this.onDropModel(value.slice(1));
@@ -89,6 +91,7 @@ export class TaskComponent1 implements OnInit {
 	ngOnInit(): void {
 		this.getTasksOb();	
 		this.getSprintDetails(this.sprint._id);
+		this.getUsers();
         	
 	}
 	
@@ -133,7 +136,7 @@ export class TaskComponent1 implements OnInit {
 		
 	}
 	
-		updateTask(_id: string ): void {
+	updateTask(_id: string ): void {
 			
 	    var editTask=this.selectedTask;
      
@@ -244,7 +247,29 @@ export class TaskComponent1 implements OnInit {
 		this.activeAdd=false;		
 	}
 	
+	//users functions
 	
+	getUsers() {		
+		this.userService.getUsers().subscribe(
+			users => {this.users = users;console.log("users");console.log(users)},
+			error =>  this.errorMessage = <any>error
+		);
+	}
+	
+	
+	
+	addComment(comment): void {
+			
+	    var taskId=this.selectedTask._id;
+     
+			this.taskService.addTaskComment(taskId,comment)
+					 .subscribe(
+					   task  =>{console.log("taskaddd");console.log(task)	},
+					   error =>  this.errorMessage = <any>error);
+		     
+		
+		
+	}
 	
 	
 }

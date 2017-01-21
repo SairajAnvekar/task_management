@@ -1,6 +1,7 @@
 import { Component ,OnInit,Input } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { SprintService } from '../services/sprint.service';
+import { UserService } from '../services/user.service';
 import { Http, Response } from '@angular/http';
 import {Project} from '../models/project';
 import { Headers, RequestOptions } from '@angular/http';
@@ -13,7 +14,7 @@ import 'rxjs/add/operator/switchMap';
   moduleId: module.id,
   selector: 'my-project',
   templateUrl: 'templates/project-detail.component.html',
-	 providers: [ProjectService,SprintService],
+	 providers: [ProjectService,SprintService,UserService],
 
 	})
 export class ProjectDetailComponent implements OnInit { 
@@ -22,9 +23,12 @@ export class ProjectDetailComponent implements OnInit {
 	  sprints:any;
 	  errorMessage :string;
 	  currentSprint:any;
+	  users:any;
+	  
 	constructor(
 	  private projectService: ProjectService, 
 	  private sprintService: SprintService,
+	  private userService:UserService,
 	  private route: ActivatedRoute,
 	  private location: Location
 	) {}
@@ -41,6 +45,7 @@ export class ProjectDetailComponent implements OnInit {
 			});
 			
 	   this.getTasksOb(id)	;
+	   this.getUsers();
 	  console.log("data"); 
 	  console.log(this.project);	  
 	}
@@ -75,7 +80,12 @@ export class ProjectDetailComponent implements OnInit {
 	}
 	
 	
-
+	getUsers() {		
+		this.userService.getUsers().subscribe(
+			users => {this.users = users;console.log("users");console.log(users)},
+			error =>  this.errorMessage = <any>error
+		);
+	}
 	
 	
 	
