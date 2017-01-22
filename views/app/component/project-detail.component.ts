@@ -19,7 +19,7 @@ import 'rxjs/add/operator/switchMap';
 	})
 export class ProjectDetailComponent implements OnInit { 
     
-      project:Project;
+      project:any;
 	  sprints:any;
 	  errorMessage :string;
 	  currentSprint:any;
@@ -85,6 +85,15 @@ export class ProjectDetailComponent implements OnInit {
 			users => {this.users = users;console.log("users");console.log(users)},
 			error =>  this.errorMessage = <any>error
 		);
+	}
+	
+	addMember(member:string)
+	{
+	this.projectService.addMember(this.project._id,member)
+						 .subscribe(
+						 project  =>{this.project=project[0];console.log("wwwwwwwwwwwwww");console.log(project)},
+						   error =>  this.errorMessage = <any>error);
+		
 	}
 	
 	

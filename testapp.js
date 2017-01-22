@@ -43,12 +43,12 @@ function errorHandler(err, req, res, next) {
     res.status(500).render('error_template', { error: err });
 }
 
-app.get('/test',isLoggedIn,function(req, res, next) {  
+app.get('/test',function(req, res, next) {  
     res.render('index');
 });
 
 app.get('/home', function(req, res, next) {  
-    res.render('index1');
+    res.render('index');
 });
 
 app.get('/home2', function(req, res, next) {  
@@ -260,7 +260,7 @@ app.post('/updateTaskPos1',function(req, res){
 app.post('/project',function(req,res){
 	console.log(req.body);
 	var userId=req.user._id;
-	var name= req.user.fname+" "+req.user.lname
+	var name= req.user.local.fname+" "+req.user.local.lname
 	var member={
 		name: name,
 		userid : userId,
@@ -300,18 +300,49 @@ app.get('/project/:id',function(req,res)
 	
 });
 
-app.put('/addProjectMembers',function(req, res, next){
+app.post('/project/addProjectMember',function(req, res, next){
 	var projectId=req.body._id;
 	var userId=req.body.userId;
-	User.find({_id:userId},function(err,user){
+	User.find({_id:userId},function(err,user){		
+		console.log("user id"+userId);		
+		console.log(user);
+		var name=user[0].local;
+		console.log(name);
+		
+		 
 		var member={
-			name: user.local.fname,
-			userid : user._id,
-			userdp : "no dp"		 
-		 };
-		Project.findOneAndUpdate({_id:projectId}, {$push: {members: member}}, {upsert:true}, function(err,task){
-			res.json({"data":task});			
+		name: name.fname,
+		userid : userId,
+		userdp : "no dp"		 
+		};
+		 
+		Project.find({'members.userid':userId,_id:projectId},function(err, doc) {		
+		
+		var send={
+				"doc":"alread",
+				"erro":doc,
+				"member":"already",
+				};
+			
+			if(doc=="" || doc==null)
+			Project.findOneAndUpdate({_id:projectId}, {$push: {members: member}}, function(err,project){
+				var send={
+				"doc":project,
+				"erro":doc,
+				"member":member,
+				};
+				Project.find({_id:projectId},function(err, doc) {	
+					res.json({"data":doc});
+				});			
+			});			
+			else
+				res.json({"data":doc});
+				
+	
+		
 		});
+		
+		
 		 
 	});
 });

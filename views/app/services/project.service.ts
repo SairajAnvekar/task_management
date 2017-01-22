@@ -16,10 +16,10 @@ private appUrl= 'project';  // URL to web API
 	}
 	
 	
-		getProject(_id): Observable<Project> {
+	getProject(_id): Observable<Project> {
 		return this.http.get(this.appUrl+'/'+_id).map(this.extractData).catch(this.handleError);
-		}
-		
+	}
+	
 	createProject (name: string ,desc:string): Observable<Project> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });     
@@ -27,7 +27,14 @@ private appUrl= 'project';  // URL to web API
 					.map(this.extractData)
 					.catch(this.handleError);
 	}	
-		
+	
+	addMember(_id: string ,userId:string): Observable<any[]> {
+	let headers = new Headers({ 'Content-Type': 'application/json' });
+	let options = new RequestOptions({ headers: headers });     
+	return this.http.post(this.appUrl+'/addProjectMember', { _id ,userId}, options)
+				.map(this.extractData)
+				.catch(this.handleError);
+	}	
 		
 
 	private extractData(res: Response) {

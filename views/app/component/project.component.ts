@@ -55,6 +55,7 @@ export class ProjectComponent implements OnInit   {
 						 .subscribe(
 						   project  =>console.log(project),
 						   error =>  this.errorMessage = <any>error);
+		this.getProjects();
 	}
 	
 	getProjects() {

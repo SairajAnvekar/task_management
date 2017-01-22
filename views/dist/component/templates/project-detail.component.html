@@ -3,13 +3,18 @@
 	{{project.name}}
 	{{project.desc}}
 	{{project._id}}
+	{{project.members|json}}
+	 <li *ngFor="let project of project.members;  " >   
+		{{project.name}}
+      </li>
 	</div>
 	
-	<select>
+	<select #member>
 	<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
 		{{user.local.fname}}
 	</option>
 	</select>
+	<button (click)="addMember(member.value)" > add member</button>
 	
 <h2>create sprint</h2>	
    	<div>
