@@ -6,7 +6,8 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { SprintService } from '../services/sprint.service';
-
+import { ActivatedRoute, Params }   from '@angular/router';
+import { Location }                 from '@angular/common';
 @Component({
   selector: 'my-tasks1',
   templateUrl: 'views/app/component/templates/task.component.html',  
@@ -16,11 +17,10 @@ import { SprintService } from '../services/sprint.service';
 	
 
   	viewProviders: [DragulaService],
-    providers: [TaskService,UserService]
+    providers: [TaskService,UserService,SprintService]
 })
 export class TaskComponent1 implements OnInit {
-	title="Tasks";
-	@Input()
+	title="Tasks";	
 	sprint:any;
 	users:any;
 	
@@ -44,7 +44,7 @@ export class TaskComponent1 implements OnInit {
 			this.selectedTask = task;
 		}
 
-    public constructor(private dragulaService:DragulaService,private taskService:TaskService,private sprintService: SprintService,private userService: UserService) {
+    public constructor(private dragulaService:DragulaService,private taskService:TaskService,private sprintService: SprintService,private userService: UserService,  private route: ActivatedRoute,private location: Location) {
 	  
 		dragulaService.dropModel.subscribe((value:any) => {
 		this.onDropModel(value.slice(1));
@@ -89,9 +89,31 @@ export class TaskComponent1 implements OnInit {
 	}
   
 	ngOnInit(): void {
-		this.getTasksOb();	
-		this.getSprintDetails(this.sprint._id);
-		this.getUsers();
+		var id;
+		
+		console.log("testin 124556");
+		this.route.params.forEach((params: Params) => {
+			id = params['id'];
+			console.log("testin -------"+id);
+			this.sprintService.getSprintDetails(id).subscribe(
+				sprint =>{
+					this.sprint=sprint[0];
+					console.log("data");
+					console.log(this.sprint);
+					this.getTasksOb();
+					this.getSprintDetails(this.sprint._id);
+					this.getUsers();
+					},
+				error =>  this.errorMessage = <any>error
+			);
+
+		});
+		
+console.log("new ===============data")
+console.log(this.sprint)
+		//this.getTasksOb();	
+	//	this.getSprintDetails(this.sprint._id);
+	//	this.getUsers();
         	
 	}
 	
@@ -197,7 +219,9 @@ export class TaskComponent1 implements OnInit {
 	{
 		this.sprintService.getSprintDetails(_id).subscribe(
 		
-			sprint=>{this.sprintUpadated=sprint;		
+			sprint=>{
+				this.sprint=sprint;
+				this.sprintUpadated=sprint;		
 				this.sprintTask=sprint[0].tasks;
 				this.workingTask=sprint[0].working;
 				this.stageTask=sprint[0].stage;

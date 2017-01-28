@@ -1,12 +1,11 @@
-<h1>Details2222</h1>
-    <div *ngIf="project">
-	{{project.name}}
-	{{project.desc}}
-	{{project._id}}
-	</div>
-
-
-			
+<h1>Details</h1>  
+	
+	<select #member>
+	<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
+		{{user.local.fname}}
+	</option>
+	</select>
+	<button (click)="addMember(member.value)" > add member</button>
 	
 <h2>create sprint</h2>	
    	<div>
@@ -17,6 +16,35 @@
 	Add
 	</button>
 	</div>
+		<div class="row">
+			<div class="col-sm-2 col-lg-2"  >
+				<div class="half-unit">	
+					<h1>Add</h1>	  		
+					<hr>
+					<div class="text">
+											
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	
+	
+	<div class="row">		
+	<div class="col-sm-2 col-lg-2" *ngFor="let sprint of sprints"  (click)="onSelect(sprint)"  >
+			<div class="half-unit">	
+				<h1>{{sprint.name}}</h1>	  		
+				<hr>
+				<div class="text">
+										
+				</div>
+				
+			</div>
+	 </div>	
+	</div>		
+	
+	
+	
 	<div>
 	  <li *ngFor="let sprint of sprints; let i = index" (click)="onSelect(sprint)" >   
 		{{sprint.name}}
@@ -24,6 +52,9 @@
 
 	  <div *ngIf="currentSprint">	  
 	  {{currentSprint | json}}
+	  
+	  
+	  
 	  
 	  
 	<div style="display:none">
@@ -35,7 +66,7 @@
 		</button>
 	</div>
 	
-	<my-tasks1 [sprint]="currentSprint"> loading  </my-tasks1>
+	
 	
 	
 	  </div>

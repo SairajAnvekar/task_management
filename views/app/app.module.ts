@@ -41,6 +41,10 @@ imports:[
 			path: 'detail/:id', 
 			component: ProjectDetailComponent 
 		},
+		{ 
+			path: 'sprintDetails/:id', 
+			component: TaskComponent1 
+		},
 
 	])
   

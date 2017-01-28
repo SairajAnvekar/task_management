@@ -389,6 +389,13 @@ app.get('/sprint',function(req,res)
 	});	
 });
 
+app.get('/sprintById/:sprintId',function(req,res)
+{
+	Sprint.find({_id:req.params.sprintId},function(err, doc){	 
+		res.json({"data":doc});		  
+	});	
+});
+
 
 function isLoggedIn(req, res, next) {
 console.log(req.user)

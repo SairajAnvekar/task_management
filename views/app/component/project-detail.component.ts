@@ -12,8 +12,8 @@ import { Location }                 from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 @Component({
   moduleId: module.id,
-  selector: 'my-project',
-  templateUrl: 'templates/project-detail.component.html',
+  selector: 'my-project1',
+  templateUrl: '/../views/app/component/templates/project-detail.component.html',
 	 providers: [ProjectService,SprintService,UserService],
 
 	})
@@ -30,7 +30,8 @@ export class ProjectDetailComponent implements OnInit {
 	  private sprintService: SprintService,
 	  private userService:UserService,
 	  private route: ActivatedRoute,
-	  private location: Location
+	  private location: Location,
+	  private router: Router
 	) {}
 	
 	ngOnInit(): void {	
@@ -66,7 +67,9 @@ export class ProjectDetailComponent implements OnInit {
 	}
 	
 	onSelect(sprint: any): void {
-		this.currentSprint = sprint;		
+		this.currentSprint = sprint;
+        this.router.navigate(['/sprintDetails',this.currentSprint._id]);
+		console.log("test");		
 	}
 	
 	addTask(name: string,status: string ): void {

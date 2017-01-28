@@ -7,28 +7,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 @Component({
   selector: 'my-project',
-  template: `
-   <h1>Project Management1s</h1>
-   	<div>
-	<label>Project</label> 
-	<input #name />
-	<input #desc />
-	<button (click)="create(name.value,desc.value); name.value='';desc.value='' ">
-	Add
-	</button>
-	</div>
-	
-	
-	<ul class="projects"  >
-		<li *ngFor="let project of projects; let i = index"  (click)="onSelect(project)" >
-			<span class="badge">{{i+1}}</span> 
-				{{project.name}}
-		</li>
-	</ul>
-	
-	
-	<button (click)="gotoDetail()">View Details</button>
-	`,
+   templateUrl: 'views/app/component/templates/project.component.html',
 	 providers: [ProjectService],
 
 	})
