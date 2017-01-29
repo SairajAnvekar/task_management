@@ -287,7 +287,7 @@ app.post('/project',function(req,res){
 
 app.get('/project',function(req, res, next){
 var userId=req.user._id;	
-	Project.find({'members.userid':userId},function(err, doc) {	 
+	Project.find({'members.userid':userId},null,{sort:{'_id':-1}},function(err, doc) {	 
 	   res.json({"data":doc});		  
 	});
 });

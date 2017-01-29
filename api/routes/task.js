@@ -12,7 +12,7 @@ router.get('/',function(req,res,next) {
 router.get('/sprint/:id',function(req,res,next) {   
       Sprint.find({_id: req.params.id},function(err, doc){	 
 	   res.json({"data":doc});
-       console.log("eeeeeeeeeeeeeeeeeeeeee");	   
+       console.log("eeeeeeeeeeeeeeeeeeeeee"+doc);	   
 	});
 });
 

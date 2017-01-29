@@ -14,6 +14,7 @@
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
 	margin-bottom:20px;
+	height:400px;
 }
 
 .text-center {
@@ -51,3 +52,18 @@ element.style {
 	height:200px;
 	
 }
+
+
+.add{
+	 border: 1px solid rgba(0, 0, 0, 0.125);
+	 margin-bottom:15px;
+}
+.add > div{
+	margin:10px;	
+	
+}
+.margin-10{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+

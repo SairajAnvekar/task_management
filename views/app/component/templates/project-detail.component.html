@@ -1,49 +1,77 @@
-<h1>Details</h1>  
-	
-	<select #member>
-	<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
+
+<div *ngFor="let project of projectDetails"  >
+  <div class="panel panel-primary">
+      <div class="panel-heading">{{project.name}}</div>
+      <div class="panel-body">
+	  <label>Name</label>
+	  <input class="form-control" [(ngModel)]="project.name" >
+	    <label>Description</label>
+         <textarea class="form-control" [(ngModel)]='project.desc'>   </textarea>
+
+
+		<select #member class="form-control">
+		<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
 		{{user.local.fname}}
-	</option>
-	</select>
-	<button (click)="addMember(member.value)" > add member</button>
+		</option>
+		</select>
+		<button  class="btn" (click)="addMember(member.value)" > add member</button>
+
+	  
+	  
+	  </div>
+    </div>
+
+
+</div>
 	
-<h2>create sprint</h2>	
-   	<div>
-	<label>sprint</label> 
-	<input #name />
-	<input #status />	
-	<button (click)="create(name.value,status.value)" >
-	Add
-	</button>
-	</div>
-		<div class="row">
-			<div class="col-sm-2 col-lg-2"  >
-				<div class="half-unit">	
-					<h1>Add</h1>	  		
-					<hr>
-					<div class="text">
-											
+
+
+	
+
+		<div class="row">		
+			
+			<div class="col-sm-5 col-lg-5 add" >
+				<div class="row">
+					<label>Sprint Name</label> 
+					<input #name  class="form-control" />
+					<label>Description </label> 
+					<textarea #status  class="form-control" id="textarea" name="textarea"></textarea>
+				</div>
+				<div class="row">				
+					<div class="col-sm-5 col-lg-5">
+						<label>Start Date</label> 
+						<input class="date form-control" [(ngModel)]="sprintStartDate"  ng2-datetime-picker    date-only="true" />
 					</div>
 					
+					<div class="col-sm-5 col-lg-5">
+						<label>End Date</label> 
+						<input class="date form-control" [(ngModel)]="sprintEndDate"  ng2-datetime-picker    date-only="true" />
+					</div>					
 				</div>
+				<div class="row">
+					<button class="btn btn-primary form-control" (click)="create(name.value,status.value)">	Add	</button>
+				</div>
+
 			</div>
 		</div>
 	
 	
-	<div class="row">		
-	<div class="col-sm-2 col-lg-2" *ngFor="let sprint of sprints"  (click)="onSelect(sprint)"  >
-			<div class="half-unit">	
-				<h1>{{sprint.name}}</h1>	  		
-				<hr>
-				<div class="text">
-										
-				</div>
-				
+
+
+<div class="row">
+	<div class="col-sm-3 col-lg-3 " *ngFor="let sprint of sprints"  (click)="onSelect(sprint)" >
+		<div class=" card">
+		 <img class="card-img-top" src="views/img/logo.gif" alt="Card image cap">
+			<div class="card-block text-center">
+			<h4 class="card-title"> <strong>{{sprint.name}}</strong></h4>
+			<p class="card-text"></p>
 			</div>
-	 </div>	
-	</div>		
+		</div>
+	</div>	
+
 	
-	
+
+</div>	
 	
 	<div>
 	  <li *ngFor="let sprint of sprints; let i = index" (click)="onSelect(sprint)" >   

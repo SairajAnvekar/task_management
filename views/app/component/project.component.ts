@@ -15,6 +15,7 @@ export class ProjectComponent implements OnInit   {
  
 	errorMessage: string;
     projects:Project[]; 
+	activeAddDetails=true;
 	public constructor(private router: Router,private projectService:ProjectService) {}	
 	selectedProject: Project;
 	ngOnInit(): void {
@@ -49,7 +50,15 @@ export class ProjectComponent implements OnInit   {
 		this.router.navigate(['/detail',this.selectedProject._id]);
 		console.log("test");
 	}
-
+	
+    showAddDetails(): void{
+		this.activeAddDetails=false;
+		
+	}
+	cancel(){		
+		this.activeAddDetails=true;	
+	}
+	
 
 
 }

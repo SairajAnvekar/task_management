@@ -24,7 +24,8 @@ export class ProjectDetailComponent implements OnInit {
 	  errorMessage :string;
 	  currentSprint:any;
 	  users:any;
-	  
+	  projectDetails;
+	  title="Tasks";	
 	constructor(
 	  private projectService: ProjectService, 
 	  private sprintService: SprintService,
@@ -39,7 +40,8 @@ export class ProjectDetailComponent implements OnInit {
 			this.route.params.forEach((params: Params) => {
 		    id = params['id'];
 			this.projectService.getProject(id).subscribe(
-			project1 =>{this.project=project1[0];console.log(project1[0])},
+			project1 =>{
+				this.project=project1[0];console.log("eeeeeeeeeeeeeeee");this.title=project1[0].name;this.projectDetails=project1},
 			error =>  this.errorMessage = <any>error
 		);
 			
@@ -48,14 +50,16 @@ export class ProjectDetailComponent implements OnInit {
 	   this.getTasksOb(id)	;
 	   this.getUsers();
 	  console.log("data"); 
-	  console.log(this.project);	  
+	  console.log(this.project);
+	 
+       
 	}
 
 	create(name: string,status: string): void {
-	this.sprintService.createSprint(name,status,this.project._id)
-						 .subscribe(
-						   project  =>console.log(project),
-						   error =>  this.errorMessage = <any>error);
+		this.sprintService.createSprint(name,status,this.project._id)
+							 .subscribe(
+							   project  =>console.log(project),
+							   error =>  this.errorMessage = <any>error);
 	this.getTasksOb(this.project._id);
 	}
 	
@@ -69,7 +73,8 @@ export class ProjectDetailComponent implements OnInit {
 	onSelect(sprint: any): void {
 		this.currentSprint = sprint;
         this.router.navigate(['/sprintDetails',this.currentSprint._id]);
-		console.log("test");		
+		console.log("current sprint");		
+		console.log(this.currentSprint);		
 	}
 	
 	addTask(name: string,status: string ): void {

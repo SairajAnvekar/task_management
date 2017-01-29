@@ -98,8 +98,8 @@ export class TaskComponent1 implements OnInit {
 			this.sprintService.getSprintDetails(id).subscribe(
 				sprint =>{
 					this.sprint=sprint[0];
-					console.log("data");
-					console.log(this.sprint);
+					console.log("data1");
+					console.log(sprint);
 					this.getTasksOb();
 					this.getSprintDetails(this.sprint._id);
 					this.getUsers();
