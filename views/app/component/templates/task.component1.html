@@ -1,0 +1,197 @@
+
+<h1>{{title}}</h1> 
+     
+
+	<div>
+<label>Task name:</label>
+<div class="form-style-5">	
+<fieldset>
+<legend><span class="number">1</span> Task </legend>
+<input type="text" name="field1" placeholder="Task Name" #taskname>
+<label for="type">Piority:</label>
+<select id="type" name="field4" #taskPiority>
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3">3</option>
+	<option value="4">4</option>
+</select>
+
+<textarea name="field3" placeholder="Description of task" #taskDesc></textarea>
+<label for="job">Type:</label>
+<select id="job" name="field4" #taskType>
+<optgroup label="Devloping">
+	<option value="devloping">Devloping</option>
+	<option value="testing">Testing</option>
+</optgroup>
+<optgroup label="Testing">
+	<option value="Testing">Testing</option>
+</optgroup>
+</select>      
+</fieldset>
+
+<fieldset>
+<legend><span class="number">2</span> Date</legend>
+<input class="date" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true" />
+<input class="date" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true" />
+
+</fieldset>
+
+
+	<button (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
+	Add
+	</button>
+</div>
+
+	
+	</div>
+	
+	<div class="list-type1">
+<ol>
+<li> <a href="#">Formget Online Form Builder Create Online Forms</a></li>
+<li><a href="#">Formget Online Form Builder Create Online Forms</a></li>
+<li><a href="#">Formget Online Form Builder Create Online Forfddddddddddddddddddddddddddddddddddddddddddddddddms</a></li>
+</ol>
+</div>
+	
+<div class="row">
+<div class="col-md-8"	>
+	<div class="list-type1 ">
+	<div class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
+	  <div *ngFor="let task of tasks; let i = index"   class="list" >	   
+		 <span class="badge">{{i+1}}</span>  <a (click)="onSelect(task)"  >{{task.name}}  </a>  {{task.description}}I{{task.priority}}		
+		 <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
+		 <span class="fa fa-trash"  (click)="delete(task); $event.stopPropagation()" aria-hidden="true"></span>		
+	  </div>
+	</div>
+	</div>
+</div>
+<div class="col-md-4">
+<div *ngIf="selectedTask">
+
+		<div class="row">
+		<h2>{{selectedTask.name}}</h2>
+		<hr>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+			Created By <br>
+			Priority:{{selectedTask.priority}}<br>
+			Status:{{selectedTask.status}}<br>
+			</div>
+			<div class="col-md-5">
+			Asign To:{{selectedTask.priority}}<br>
+			</div>
+		</div>
+
+		<div class="row">
+		 Description
+		  {{selectedTask.description}}<br>
+		</div>
+				
+		<hr>
+		<select  [(ngModel)]="selectedTask.status">
+		<option value="not started">Not Started</option>
+		<option value="started">Started</option>
+		<option value="completed">completed</option>
+		</select>
+		Progress
+		 <input type="text" [(ngModel)]="selectedTask.progress" >
+		<div class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width]="selectedTask.progress+'%'" >
+		  <span class="sr-only">70% Complete</span>
+		</div>
+		</div>
+		 
+		</div>	
+       <span (click)="updateTask('1')"> test</span>
+
+</div >
+
+</div>	
+	
+	test
+	<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
+      <li *ngFor="let task of sprintTask; let i = index"  >
+       <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}} {{mapTasks[task].desc}}{{mapTasks[task].priority}} 	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+      </li>
+    </ul>
+	
+	
+	
+<hr>
+display
+
+
+
+
+
+
+	
+	
+	map task
+	{{mapTasks | json }}
+	<br>
+	<br>
+	<br>
+	{{sprintTask | json}}
+	<!--map
+	{{mapTasks | json }}
+
+	
+	 <div class='container'>
+            <pre>{{tasks | json}}</pre>
+        </div> -->
+		{{workingTask | json}}
+		{{stageTask | json}}
+		{{prodTask | json}}
+		<div class="row">
+		<div class="col-md-3" >
+		<h2> Tasks</h2>
+			<div class="taskslist " id="tasks" [dragula]='"deploy"'  [dragulaModel]='sprintTask'> 
+				<li *ngFor="let task of sprintTask; let i = index"   >
+				<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+				</li>		
+			</div>
+		</div>
+		<div class="col-md-3" >
+		<h2> Working</h2>
+		<div   class="taskslist "  id="workingTask" [dragula]='"deploy"'  [dragulaModel]='workingTask'> 
+			<li *ngFor="let task of workingTask; let i = index"   >
+			<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+		</div>
+		</div>
+		
+		<div class="col-md-3" >
+			<h2> Stage</h2>
+			<div   class="taskslist "   id="stageTask" [dragula]='"deploy"'  [dragulaModel]='stageTask'> 
+				<li *ngFor="let task of stageTask; let i = index"   >
+				<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+			</div>
+		</div>
+		
+		<div class="col-md-3" >
+			<h2> Production</h2>
+			<div  class="taskslist "    id="prodTask" [dragula]='"deploy"'  [dragulaModel]='prodTask'> 
+				<li *ngFor="let task of prodTask; let i = index"   >
+				<div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}}	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
+			</div>
+		</div>
+		</div>
+		
+ <!-- <task-detail1 [task]="selectedTask"></task-detail1>-->
+ 
+ <tabs>
+      <tab [tabTitle]="'Tab 1'">Tab 1 Content</tab>
+	  <tab [tabTitle]="'Tab 2'">
+	  
+	 map task
+	{{mapTasks | json }}
+	<br>
+	<br>
+	<br>
+	{{sprintTask | json}}
+	  
+	  
+	  </tab>
+      <tab tabTitle="Tab 2">Tab 2 Content</tab>
+    </tabs>

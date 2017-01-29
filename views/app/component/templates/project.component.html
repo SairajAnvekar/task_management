@@ -1,0 +1,59 @@
+ <h1>Project Management1s</h1>
+   
+	
+	
+<div class="row">	
+			
+	<div class="col-sm-5 col-lg-5 add  " >
+			<div class="col-sm-12">
+				<label>Project Name</label> 
+				<input #name  class="form-control"  (click)="showAddDetails()"/>					
+			</div>
+			<div class="col-sm-12 "   [hidden]="activeAddDetails" >	
+				<label>Description </label> 
+				<textarea #desc  class="form-control" id="textarea" name="textarea"></textarea>				
+				<div class="col-sm-6 ">
+					<label>Start Date</label> 
+					<input class="date form-control" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true" />
+				</div>
+				
+				<div class="col-sm-6 ">
+					<label>End Date</label> 
+					<input class="date form-control" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true" />
+				</div>					
+			</div>
+			<div class="col-sm-12">
+				<button class="btn btn-primary form-control" (click)="create(name.value,desc.value); name.value='';desc.value='' ">
+				Add
+				</button>
+				<div class="margin-10" [hidden]="activeAddDetails"  >
+					<button class="btn btn-primary form-control" (click)="cancel()" >
+						Cancel
+					</button>
+				</div>
+			</div>
+
+	</div>
+	
+</div>
+		
+
+<div class="row">
+
+<div class="col-sm-3 col-lg-3 "  *ngFor="let project of projects"  (click)="onSelect(project)" >
+	<div class=" card">
+	 <img class="card-img-top" src="views/img/logo.gif" alt="Card image cap">
+		<div class="card-block text-center">
+			<h4 class="card-title"> <strong>{{project.name}}</strong></h4>
+			<p class="card-text">{{project.desc}}</p>		
+			<div>
+				<p>2 <strong>Sprint</strong></p>
+			</div>		
+		</div>
+	</div>
+</div>	
+
+</div>
+
+
+
