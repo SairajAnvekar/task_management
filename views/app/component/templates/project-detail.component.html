@@ -15,7 +15,8 @@
 		</option>
 		</select>
 		<button  class="btn" (click)="addMember(member.value)" > add member</button>
-
+         complete
+		 <input type="text" class="form-control" />
 	  
 	  
 	  </div>
@@ -61,7 +62,13 @@
 <div class="row">
 	<div class="col-sm-3 col-lg-3 " *ngFor="let sprint of sprints"  (click)="onSelect(sprint)" >
 		<div class=" card">
-		 <img class="card-img-top" src="views/img/logo.gif" alt="Card image cap">
+			<div class={{progress}}{{percentage}}  >
+				<span>50% </span>
+				<div class="slice">
+					<div class="bar"></div>
+					<div class="fill"></div>
+				</div>
+			</div>
 			<div class="card-block text-center">
 			<h4 class="card-title"> <strong>{{sprint.name}}</strong></h4>
 			<p class="card-text"></p>

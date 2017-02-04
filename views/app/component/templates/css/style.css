@@ -140,16 +140,17 @@ margin: 0 0 0 2em;
 .list-type1 .list{
 position: relative;
 display: block;
-padding: .4em .4em .4em 2em;
-*padding: .4em;
+/*padding: .4em .4em .4em 2em;
+*padding: .4em;*/
 margin: .5em 0;
 background: #93C775;
 color: #000;
 text-decoration: none;
--moz-border-radius: .3em;
--webkit-border-radius: .3em;
-border-radius: 10em;
+-moz-border-radius: 12em 0em 0em 10em;
+-webkit-border-radius: 12em 0em 0em 10em;
+border-radius: 12em 0em 0em 10em;
 transition: all .2s ease-in-out;
+height:80px;
 }
 
 .list-type1 .list:hover{
@@ -237,6 +238,8 @@ color:#FFF;
 	position: absolute;
 }
 
-
+.list{
+	clear:both;
+}
 
 

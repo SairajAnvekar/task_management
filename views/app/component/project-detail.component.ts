@@ -20,6 +20,8 @@ import 'rxjs/add/operator/switchMap';
 export class ProjectDetailComponent implements OnInit { 
     
       project:any;
+	  progress=" c100  big green ";
+	  percentage=" p45";
 	  sprints:any;
 	  errorMessage :string;
 	  currentSprint:any;

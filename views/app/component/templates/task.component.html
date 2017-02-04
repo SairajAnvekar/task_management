@@ -57,7 +57,15 @@
 		<div class="col-md-8"	>
 		<div class="list-type1 ">
 		<div class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
-		  <div *ngFor="let task of tasks; let i = index"   class="list" >	   
+		  <div *ngFor="let task of tasks; let i = index"   class="list" >
+
+			<div class="c100 small p{{task.progress}}">
+			<span>{{task.progress}}%</span>
+			<div class="slice">
+				<div class="bar"></div>
+				<div class="fill"></div>
+			</div>
+			</div>		  
 			 <span class="badge">{{i+1}}</span>  <a (click)="onSelect(task)"  >{{task.name}}  </a>  {{task.description}}I{{task.priority}}		
 			 <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
 			 <span class="fa fa-trash"  (click)="delete(task); $event.stopPropagation()" aria-hidden="true"></span>		
