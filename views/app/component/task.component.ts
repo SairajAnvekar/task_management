@@ -23,7 +23,7 @@ export class TaskComponent1 implements OnInit {
 	title="Tasks";	
 	sprint:any;
 	users:any;
-	
+	sprintId:string;
 	mapTasks:{[id:string]:any}={};	  
 	sprintUpadated:any;
 	errorMessage: string;
@@ -74,7 +74,7 @@ export class TaskComponent1 implements OnInit {
 		console.log(this.sprint._id);
 		console.log(target);
 		console.log(source);
-		this.taskService.updateTaskPosition(this.sprint._id,tid,idxOfTask,idxOfWorking,idxOfStage,idxOfProd)
+		this.taskService.updateTaskPosition(this.sprintId,tid,idxOfTask,idxOfWorking,idxOfStage,idxOfProd)
 					 .subscribe(
 					   task  =>{						   
 							console.log(task);
@@ -98,6 +98,7 @@ export class TaskComponent1 implements OnInit {
 			this.sprintService.getSprintDetails(id).subscribe(
 				sprint =>{
 					this.sprint=sprint[0];
+					this.sprintId=sprint[0]._id;
 					console.log("data1");
 					console.log(sprint);
 					this.getTasksOb();
@@ -129,7 +130,9 @@ console.log(this.sprint)
 	
 	
 	getTasksOb() {
-		var sprintId=this.sprint._id;
+		console.log("test ------");
+		console.log(this.sprint._id);
+		var sprintId=this.sprintId;
 		this.taskService.getTaskApi(sprintId).subscribe(
 			tasks => {this.tasks = tasks,console.log(this.tasks),this.setMapTasks(tasks)},
 			error =>  this.errorMessage = <any>error
@@ -137,8 +140,10 @@ console.log(this.sprint)
 	}
 	
 	add(name: string,_id: string ,pri:number,desc:string,type:string): void {
-	   name = name.trim();		
-        _id=this.sprint._id;
+	   name = name.trim();
+         console.log("addding");	   
+         console.log(this.sprintId);	   
+        _id=this.sprintId;
 			this.taskService.addTask(name,_id,pri,desc,type)
 					 .subscribe(
 					   task  =>{						   

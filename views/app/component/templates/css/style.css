@@ -118,11 +118,6 @@
     background: #109177;
 }
 
-.taskslist
-{
-	border:1px solid;		
-	min-height:100px;
-}
 
 
 .list-type1{
@@ -182,5 +177,66 @@ font-weight: bold;
 border-radius: 2em;
 color:#FFF;
 }
+
+.stickyNote{ 
+	display: block;
+	padding:25px 25px 40px;
+	margin:0 auto 20px auto;
+	width:250px;
+	height:250px;   
+	font:14px 'Gloria Hallelujah', cursive; 
+	line-height:1.5;
+	border:0;
+	border-radius:3px;
+	background: -webkit-linear-gradient(#F9EFAF, #F7E98D);
+	background: -moz-linear-gradient(#F9EFAF, #F7E98D);
+	background: -o-linear-gradient(#F9EFAF, #F7E98D);
+	background: -ms-linear-gradient(#F9EFAF, #F7E98D);
+	background: linear-gradient(#F9EFAF, #F7E98D);
+	box-shadow:0 4px 6px rgba(0,0,0,0.1);
+	overflow:hidden;
+	transition:box-shadow 0.5s ease;
+	font-smoothing:subpixel-antialiased;
+	max-width:80%;
+	max-height:100px;
+}
+
+.stickyNote:hover { box-shadow:0 5px 8px rgba(0,0,0,0.15); }
+.stickyNote:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
+
+.board{
+	background:green;
+	background: url(../views/img/board3.jpg);	
+	border:5px solid black;
+	border-radius:6px;
+}
+
+.board .board-heading{	
+	color:white;
+	text-align:center;
+}
+
+.taskslist{
+	list-style:none;
+	min-height:500px;
+
+}
+
+.board .col-md-3{
+	border-right: 2px dotted grey;
+}
+
+.pin{
+	height:20px;
+	width:20px;
+	border-radius:50%;
+	background:red;
+	margin-left: 23px;
+	margin-top: 0px;
+	z-index: 1;
+	position: absolute;
+}
+
+
 
 
