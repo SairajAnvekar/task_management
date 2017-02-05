@@ -51,36 +51,29 @@
 
 		</div>
 
-
-
-		<div class="row">
-		<div class="col-md-8"	>
-		<div class="list-type1 ">
-		<div class="tasks"  [dragula]='"another-bag"'   [dragulaModel]='tasks'>
-		  <div *ngFor="let task of tasks; let i = index"   class="list" >
-
-			<div class="c100 small p{{task.progress}}">
-			<span>{{task.progress}}%</span>
-			<div class="slice">
-				<div class="bar"></div>
-				<div class="fill"></div>
-			</div>
-			</div>		  
-			 <span class="badge">{{i+1}}</span>  <a (click)="onSelect(task)"  >{{task.name}}  </a>  {{task.description}}I{{task.priority}}		
-			 <span class="fa fa-pencil-square-o" aria-hidden="true"></span>
-			 <span class="fa fa-trash"  (click)="delete(task); $event.stopPropagation()" aria-hidden="true"></span>		
-		  </div>
+		
+<div class="container">  
+  <div class="panel-group list-type1" id="accordion">
+    <div  *ngFor="let task of tasks; let i = index"  class="panel ">
+      <div class="list ">
+    
+          <a (click)="onSelect(task)" data-toggle="collapse" data-parent="#accordion" href="#{{task._id}}  ">{{task.name}}</a>
+            <span class="fa fa-trash"  (click)="delete(task); $event.stopPropagation()" aria-hidden="true"></span>
+		<div class="c100 small p{{task.progress}}">
+				<span>{{task.progress}}%</span>
+				<div class="slice">
+					<div class="bar"></div>
+					<div class="fill"></div>
+				</div>
 		</div>
-		</div>
-		</div>
-		<div class="col-md-4">
+      </div>
+      <div id="{{task._id}}" class="collapse ">
+        <div class="panel-body task-details">
 		<div *ngIf="selectedTask">
-
-			<div class="row">
-			<h2>{{selectedTask.name}}</h2>
-			<hr>
+			<div class="row row-1">
+			<h2 class="title">{{selectedTask.name}}</h2>
 			</div>
-			<div class="row">
+			<div class="row  rwo-2">
 				<div class="col-md-5">
 				Created By <br>
 				Priority:{{selectedTask.priority}}<br>
@@ -91,43 +84,50 @@
 				</div>
 			</div>
 
-			<div class="row">
-			 Description
-			  {{selectedTask.description}}<br>
+			<div class="row row-3">
+				<div class="col-md-5">
+				Description
+				{{selectedTask.description}}<br>
+				</div>
 			</div>
 					
-			<hr>
-			<select  [(ngModel)]="selectedTask.status">
-			<option value="not started">Not Started</option>
-			<option value="started">Started</option>
-			<option value="completed">completed</option>
-			</select>
-			Progress
-			 <input type="text" [(ngModel)]="selectedTask.progress" >
-			<div class="progress">
-			<div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"  [style.width]="selectedTask.progress+'%'" >
-			  <span class="sr-only">70% Complete</span>
-			</div>
+			<div class="row row-4">
+				<div class="col-md-5">
+					<span class="textLable"> Status</span>
+					<select  class="form-control" [(ngModel)]="selectedTask.status">
+					<option value="not started">Not Started</option>
+					<option value="started">Started</option>
+					<option value="completed">completed</option>
+					</select>
+				</div>
+				<div class="col-md-5">
+				Progress
+				 <input type="text" class="form-control" [(ngModel)]="selectedTask.progress"  max="100">
+				
+				</div>				
 			</div>
 			   <span (click)="updateTask('1')"> <button class="btn btn-primary"> Update </button></span>
 			
+			<div  class="comment-block">			
+				<div class="comments" *ngFor="let comment of selectedTask.comments; let i = index"   >
 			
-			<div class="comments" *ngFor="let comment of selectedTask.comments; let i = index"   >
-		
-			{{comment.comment}}
-			
-			</div>
-			<input type="text" #comment>
-		    <span (click)="addComment(comment.value)"> <button class="btn btn-primary"> post </button></span>
+				{{comment.comment}}
+				
+				</div>
+				<input type="text" #comment>
+				<span (click)="addComment(comment.value)"> <button class="btn btn-primary"> post </button></span>
 			</div>	
-			
+			</div>
 		
 		
+		</div>
+      </div>
+    </div>
 
-		</div >
-
-		</div>	
-
+  
+  </div> 
+</div>
+    
 
 </tab>
 	<tab tabTitle="Board">
