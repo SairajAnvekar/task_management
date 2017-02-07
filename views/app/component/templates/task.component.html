@@ -1,9 +1,6 @@
 
 <h1>{{title}}</h1> 
-    {{sprintId}} 
-	
-	
-	
+    {{sprintId}} 	
 <div class="row">
 	<div  class="col-md-2">
 
@@ -13,62 +10,77 @@
 	<div class="col-md-8 strip">
 <tabs>
 <tab [tabTitle]="'Tasks'">
-<button class="btn btn-primary" (click)="showAdd()" >Add</button>
-		<div>
-		<label>Task name:</label>
-		<div [hidden]="activeAdd" class="form-style-5" >	
-		<fieldset>
-		<legend><span class="number">1</span> Task </legend>
-		<input type="text" name="field1" placeholder="Task Name" #taskname>
-		<label for="type">Piority:</label>
-		<select id="type" name="field4" #taskPiority>
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		</select>
+	<div>
 
-		<textarea name="field3" placeholder="Description of task" #taskDesc></textarea>
-		<label for="job">Type:</label>
-		<select id="job" name="field4" #taskType>
-		<optgroup label="Devloping">
-		<option value="devloping">Devloping</option>
-		<option value="testing">Testing</option>
-		</optgroup>
-		<optgroup label="Testing">
-		<option value="bug fix">Bug Fix</option>
-		</optgroup>
-		</select>   
+		<div  class="col-md-12 s-form-type-1 s-border-type-1" >	
+        <fieldset class="form-group row">
+				<legend *ngIf="formName" >{{formName}}</legend>
+				<legend><span class="number">1</span> *Task </legend>
+				<input type="text" class="form-control" placeholder="Task Name" #taskname  (click)="showAdd()">
+			 
+		 </fieldset>
+         <div class="flow-in" [hidden]="activeAdd">
+			<fieldset   class="form-group row">	
+				<div class="col-md-6">	
+					<label for="piority">Piority:</label>
+					<select id="piority" class="form-control" #taskPiority>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<label for="job">Type:</label>
+					<select id="job" class="form-control" #taskType>
+					<optgroup label="Devloping">
+					<option value="devloping">Devloping</option>
+					<option value="testing">Testing</option>
+					</optgroup>
+					<optgroup label="Testing">
+					<option value="bug fix">Bug Fix</option>
+					</optgroup>
+					</select> 
+				</div>
+			</fieldset>
+			
+			<fieldset class="form-group row">                
+				<label >Description:</label>
+				<textarea class="form-control" placeholder="Description of task" #taskDesc></textarea>
+			</fieldset>
 
-		 
+			<fieldset class="form-group row">
+				<legend><span class="number">2</span> Date</legend>
+				<div class="col-md-6"> 
+					<label >Start Date</label>
+					<input class="date" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true" readonly />
+				</div>
+				<div class="col-md-6">
+					<label >End Date</label>
+					<input class="date" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true"  readonly/>
+				</div>
+			</fieldset>
+		</div>
 		
-		</fieldset>
+		<div class="form-group row">
+			<button  class="form-control btn s-style1-btn " (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
+			Add
+			</button>
+			<button class="btn btn-primary form-control" (click)="cancel()" >Cancel</button>
 
-		<fieldset>
-		<legend><span class="number">2</span> Date</legend>
-		<input class="date" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true" />
-		<input class="date" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true" />
-
-		</fieldset>
-
-
-		<button (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
-		Add
-		</button>
-		 <button class="btn btn-primary" (click)="cancel()" >Cancel</button>
 		</div>
 
-
 		</div>
+	</div>
 
 		
-<div class="container strip">  
+<div class="strip">  
   <div class="panel-group list-type1" id="accordion">
     <div  *ngFor="let task of tasks; let i = index"  class="panel ">
       <div class="list ">
     
-          <a (click)="onSelect(task)" data-toggle="collapse" data-parent="#accordion" href="#{{task._id}}  ">{{task.name}}</a>
-            <span class="fa fa-trash"  (click)="delete(task); $event.stopPropagation()" aria-hidden="true"></span>
+          <strong><a (click)="onSelect(task)" data-toggle="collapse" data-parent="#accordion" href="#{{task._id}}  ">{{task.name}}</a></strong>
+           <span class="actions"> <span class="fa fa-trash fa-2x"  (click)="delete(task); $event.stopPropagation()" aria-hidden="true"></span> </span>
 		<div class="c100 small p{{task.progress}}">
 				<span>{{task.progress}}%</span>
 				<div class="slice">
@@ -80,9 +92,7 @@
       <div id="{{task._id}}" class="collapse ">
         <div class="panel-body task-details">
 		<div *ngIf="selectedTask">
-			<div class="row row-1">
-			<h2 class="title">{{selectedTask.name}}</h2>
-			</div>
+			
 			<div class="row  rwo-2">
 				<div class="col-md-5">
 				Created By <br>
@@ -95,14 +105,14 @@
 			</div>
 
 			<div class="row row-3">
-				<div class="col-md-5">
-				Description
-				{{selectedTask.description}}<br>
+				<div class="col-md-10">
+				Description				
+					<textarea [(ngModel)]="selectedTask.description"  class="form-control" id="textarea" name="textarea"></textarea>
 				</div>
 			</div>
 					
 			<div class="row row-4">
-				<div class="col-md-5">
+				<div class="col-md-4">
 					<span class="textLable"> Status</span>
 					<select  class="form-control" [(ngModel)]="selectedTask.status">
 					<option value="not started">Not Started</option>
@@ -110,11 +120,22 @@
 					<option value="completed">completed</option>
 					</select>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-3">
 				Progress
 				 <input type="text" class="form-control" [(ngModel)]="selectedTask.progress"  max="100">
 				
-				</div>				
+				</div>	
+				<div class="col-md-3">
+					<label for="type">Piority:</label>
+					<select id="type" name="field4"  class="form-control" [(ngModel)]="selectedTask.priority">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					</select>				
+				</div>
+
+				
 			</div>
 			   <span (click)="updateTask('1')"> <button class="btn btn-primary"> Update </button></span>
 			

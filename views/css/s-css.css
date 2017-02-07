@@ -5,3 +5,85 @@
 .strip{
     background: url(../img/1.png);
 }
+/* form type*/
+.s-form-type-1{
+    border: solid black 2px;
+    padding: 10px 40px;
+    border-radius: 8px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    margin:20px 0px 20px 0;
+}
+.s-form-type-1 fieldset{
+    border: none;
+}
+.s-form-type-1 legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.s-form-type-1 label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.s-form-type-1 .number {
+    background: #1abc9c;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 0px 15px;
+}
+
+.s-form-type-1 input[type="submit"],
+.s-form-type-1 input[type="button"]
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #1abc9c;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+	border-radius: 10px;
+}
+.s-form-type-1 button
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #1abc9c;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+}
+.s-form-type-1 input[type="submit"]:hover,
+.s-form-type-1 input[type="button"]:hover,
+.s-form-type-1 button:hover
+{
+    background: #109177;
+}
+
+.s-style1-btn{
+    
+
+
+}
+
+/*end form */

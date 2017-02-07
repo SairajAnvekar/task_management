@@ -32,6 +32,8 @@ export class TaskComponent1 implements OnInit {
 	stageTask=[];
 	prodTask=[];
 	activeAdd=true;
+    formName:string;
+   	
 	task1: Task ={
 					id: 1,
 					name: 'Build App',
@@ -141,26 +143,26 @@ console.log(this.sprint)
 	
 	add(name: string,_id: string ,pri:number,desc:string,type:string): void {
 	   name = name.trim();
-         console.log("addding");	   
-         console.log(this.sprintId);	   
-        _id=this.sprintId;
-			this.taskService.addTask(name,_id,pri,desc,type)
-					 .subscribe(
-					   task  =>{						   
-							this.sprintTask.push(task['_id']);						
-						    this.tasks.push(task);
-							this.mapTasks[task['_id']]={
-															'_id':task['_id'],
-															'name':task['name'],
-															'status':task['status']
+        if(name=="")
+         	this.formName="Task Name is required ";		
+	    else{        	   
+			_id=this.sprintId;
+				this.taskService.addTask(name,_id,pri,desc,type)
+						 .subscribe(
+						   task  =>{						   
+								this.sprintTask.push(task['_id']);						
+								this.tasks.push(task);
+								this.mapTasks[task['_id']]={
+																'_id':task['_id'],
+																'name':task['name'],
+																'status':task['status']
 
-							}		
+								}		
 
-							},
-					   error =>  this.errorMessage = <any>error);
-		     
-		
-		
+								},
+						   error =>  this.errorMessage = <any>error);	     
+			
+		}
 	}
 	
 	updateTask(_id: string ): void {

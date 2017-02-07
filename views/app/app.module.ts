@@ -7,7 +7,7 @@ import { AppComponent }        from './app.component';
 import { RouterModule }   from '@angular/router';
 import { DashboardComponent }   from './dashboard.component';
 import { HttpModule }    from '@angular/http';
-import { Dragula } from 'ng2-dragula/ng2-dragula';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import {ProjectComponent }   from './component/project.component';
 import {ProjectDetailComponent }   from './component/project-detail.component';
 import {LocationStrategy, HashLocationStrategy}  from '@angular/common';
@@ -21,7 +21,7 @@ imports:[
 	BrowserModule, 
 	FormsModule,
 	HttpModule,
- 
+    DragulaModule,
 	Ng2DatetimePickerModule,
 	RouterModule.forRoot([
 	   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -49,7 +49,7 @@ imports:[
 	])
   
   ],
-  declarations: [AppComponent,TaskComponent ,TaskComponent1,Dragula, TaskDetailComponent,TaskDetailComponent1 , DashboardComponent,ProjectComponent,ProjectDetailComponent,Tab,Tabs],
+  declarations: [AppComponent,TaskComponent ,TaskComponent1, TaskDetailComponent,TaskDetailComponent1 , DashboardComponent,ProjectComponent,ProjectDetailComponent, Tabs, Tab],
   bootstrap:    [ AppComponent ], 
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
 })
