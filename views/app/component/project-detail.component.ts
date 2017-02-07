@@ -11,30 +11,30 @@ import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 @Component({
-  moduleId: module.id,
-  selector: 'my-project1',
-  templateUrl: '/../views/app/component/templates/project-detail.component.html',
-	 providers: [ProjectService,SprintService,UserService],
+	moduleId: module.id,
+	selector: 'my-project1',
+	templateUrl: '/../views/app/component/templates/project-detail.component.html',
+	providers: [ProjectService,SprintService,UserService],
 
 	})
 export class ProjectDetailComponent implements OnInit { 
     
-      project:any;
-	  progress=" c100  big green ";
-	  percentage=" p45";
-	  sprints:any;
-	  errorMessage :string;
-	  currentSprint:any;
-	  users:any;
-	  projectDetails;
-	  title="Tasks";	
+    project:any={};
+	progress=" c100  big green ";
+	percentage=" p45";
+	sprints:any;
+	errorMessage :string;
+	currentSprint:any;
+	users:any;
+	projectDetails;
+	title="Tasks";	
 	constructor(
-	  private projectService: ProjectService, 
-	  private sprintService: SprintService,
-	  private userService:UserService,
-	  private route: ActivatedRoute,
-	  private location: Location,
-	  private router: Router
+		private projectService: ProjectService, 
+		private sprintService: SprintService,
+		private userService:UserService,
+		private route: ActivatedRoute,
+		private location: Location,
+		private router: Router
 	) {}
 	
 	ngOnInit(): void {	
@@ -51,23 +51,30 @@ export class ProjectDetailComponent implements OnInit {
 			
 	   this.getTasksOb(id)	;
 	   this.getUsers();
-	  console.log("data"); 
-	  console.log(this.project);
+	   console.log("data"); 
+	   console.log(this.project);
 	 
        
 	}
 
 	create(name: string,status: string): void {
 		this.sprintService.createSprint(name,status,this.project._id)
-							 .subscribe(
-							   project  =>console.log(project),
-							   error =>  this.errorMessage = <any>error);
-	this.getTasksOb(this.project._id);
+						  .subscribe(project  =>console.log(project),
+										error =>  this.errorMessage = <any>error);
+		this.getTasksOb(this.project._id);
+	}
+	
+	
+	update(project:any)
+	{
+		this.projectService.updateProject(project).subscribe(project  =>console.log(project),
+										error =>  this.errorMessage = <any>error);
+									
 	}
 	
 	getTasksOb(projectid) {
 		this.sprintService.getProjectSprint(projectid).subscribe(
-	sprints =>{this.sprints = sprints;console.log("data");console.log(this.sprints)},
+		sprints =>{this.sprints = sprints;console.log("data");console.log(this.sprints)},
 			error =>  this.errorMessage = <any>error
 		);
 	}

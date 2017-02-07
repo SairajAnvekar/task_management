@@ -20,10 +20,19 @@ private appUrl= 'project';  // URL to web API
 		return this.http.get(this.appUrl+'/'+_id).map(this.extractData).catch(this.handleError);
 	}
 	
-	createProject (name: string ,desc:string): Observable<Project> {
+	createProject (name: string ,desc:string,startDate:any,endDate:any): Observable<Project> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });     
-		return this.http.post(this.appUrl, { name ,desc}, options)
+		return this.http.post(this.appUrl, { name ,desc,startDate,endDate}, options)
+					.map(this.extractData)
+					.catch(this.handleError);
+	}
+	
+	
+	updateProject (project:any): Observable<Project> {
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let options = new RequestOptions({ headers: headers });     
+		return this.http.put(this.appUrl, {project}, options)
 					.map(this.extractData)
 					.catch(this.handleError);
 	}	

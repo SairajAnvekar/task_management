@@ -271,7 +271,9 @@ app.post('/project',function(req,res){
 	var projectData={
 		name:req.body.name,
 		desc:req.body.desc,
-        createdBy:userId,		
+        createdBy:userId,
+		startDate:req.body.startDate,		
+		endDate:req.body.endDate,		
 	};
 
 	var project=new Project(projectData);
@@ -285,19 +287,30 @@ app.post('/project',function(req,res){
 	});	
 });
 
+app.put('/project',function(req,res){
+	console.log(req.body);
+	var projectData=req.body.project;	
+	Project.findById(projectData._id, function (err, project) {	
+        project.name=projectData.name;		
+        project.desc=projectData.desc;		
+        project.completed=projectData.completed;		
+		project.save(function (err) {		
+			res.json({"data":project});
+		});
+	});	
+});
+
 app.get('/project',function(req, res, next){
-var userId=req.user._id;	
+	var userId=req.user._id;	
 	Project.find({'members.userid':userId},null,{sort:{'_id':-1}},function(err, doc) {	 
 	   res.json({"data":doc});		  
 	});
 });
 
-app.get('/project/:id',function(req,res)
-{
- Project.find({_id: req.params.id},function(err, doc){	 
+app.get('/project/:id',function(req,res){
+	Project.find({_id: req.params.id},function(err, doc){	 
 	   res.json({"data":doc});		  
-	});
-	
+	});	
 });
 
 app.post('/project/addProjectMember',function(req, res, next){
@@ -306,10 +319,7 @@ app.post('/project/addProjectMember',function(req, res, next){
 	User.find({_id:userId},function(err,user){		
 		console.log("user id"+userId);		
 		console.log(user);
-		var name=user[0].local;
-		console.log(name);
-		
-		 
+		var name=user[0].local;	
 		var member={
 		name: name.fname,
 		userid : userId,

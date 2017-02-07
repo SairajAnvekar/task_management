@@ -1,6 +1,16 @@
 
 <h1>{{title}}</h1> 
     {{sprintId}} 
+	
+	
+	
+<div class="row">
+	<div  class="col-md-2">
+
+	calender
+
+	</div>	
+	<div class="col-md-8 strip">
 <tabs>
 <tab [tabTitle]="'Tasks'">
 <button class="btn btn-primary" (click)="showAdd()" >Add</button>
@@ -52,7 +62,7 @@
 		</div>
 
 		
-<div class="container">  
+<div class="container strip">  
   <div class="panel-group list-type1" id="accordion">
     <div  *ngFor="let task of tasks; let i = index"  class="panel ">
       <div class="list ">
@@ -165,13 +175,16 @@
 			</div>
 		</div>
 		</div>
-	
-{{ mapTasks | json}}
-
 	</tab>
 </tabs>
+</div>
+<div class="col-md-2">
+ team  members
 
-	test
+</div>
+
+</div>
+
 	<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
       <li *ngFor="let task of sprintTask; let i = index"  >
        <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}} {{mapTasks[task].desc}}{{mapTasks[task].priority}} 	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	

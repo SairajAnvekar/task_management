@@ -16,6 +16,8 @@ export class ProjectComponent implements OnInit   {
 	errorMessage: string;
     projects:Project[]; 
 	activeAddDetails=true;
+	progress=" c100  big green ";
+	percentage=" p45";
 	public constructor(private router: Router,private projectService:ProjectService) {}	
 	selectedProject: Project;
 	ngOnInit(): void {
@@ -28,10 +30,10 @@ export class ProjectComponent implements OnInit   {
         this.gotoDetail();		
 	}
 	
-	create(name: string,desc: string): void {
+	create(name: string,desc: string,sdate:any,endDate:any): void {
 		name = name.trim();	
-		console.log(name);
-		this.projectService.createProject(name,desc)
+		console.log(sdate);
+		this.projectService.createProject(name,desc,sdate,endDate)
 						 .subscribe(
 						   project  =>console.log(project),
 						   error =>  this.errorMessage = <any>error);

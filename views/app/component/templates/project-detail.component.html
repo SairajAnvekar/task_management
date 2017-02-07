@@ -1,29 +1,43 @@
 
-<div *ngFor="let project of projectDetails"  >
-  <div class="panel panel-primary">
-      <div class="panel-heading">{{project.name}}</div>
-      <div class="panel-body">
-	  <label>Name</label>
-	  <input class="form-control" [(ngModel)]="project.name" >
-	    <label>Description</label>
-         <textarea class="form-control" [(ngModel)]='project.desc'>   </textarea>
 
+  <div class="panel panel-default s-panel">
+	<div class="panel-heading"><h3>{{project.name}}</h3></div>
+	<div class="panel-body">
+		<div class="col-md-8" >
+		
+			<div class=" form-group row">
+				<label>Name</label>
+				<input class="form-control" [(ngModel)]="project.name" >
+			</div>	
+			
+			<div class=" form-group row">		  
+				<label>Description</label>
+				<textarea class="form-control" [(ngModel)]='project.desc'>   </textarea>
+			</div> 
+            <div class=" form-group row">  	
+			    <div class="col-md-5">
+					<label>Add Members</label>  
+					<select #member class="form-control">
+					<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
+					{{user.local.fname}}
+					</option>
+					</select>
+					<button  class="btn btn-primary" (click)="addMember(member.value)" > add member</button>
+                </div>
+				<div class="col-md-5">
+					<label>Completed</label>  
+					<input type="number" class="form-control" max=100  [(ngModel)]='project.completed'/>
+			    </div>
+			</div>
+			<div class=" form-group row">  
+             
+			 	<button  class="btn btn-primary" (click)="update(project)"> Update</button>
 
-		<select #member class="form-control">
-		<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
-		{{user.local.fname}}
-		</option>
-		</select>
-		<button  class="btn" (click)="addMember(member.value)" > add member</button>
-         complete
-		 <input type="text" class="form-control" />
-	  
-	  
-	  </div>
+			</div>
+		</div>
+	</div>
     </div>
 
-
-</div>
 	
 
 
@@ -41,12 +55,12 @@
 				<div class="row">				
 					<div class="col-sm-5 col-lg-5">
 						<label>Start Date</label> 
-						<input class="date form-control" [(ngModel)]="sprintStartDate"  ng2-datetime-picker    date-only="true" />
+						<input class="date form-control" [(ngModel)]="sprintStartDate"  ng2-datetime-picker    date-only="true" readonly />
 					</div>
 					
 					<div class="col-sm-5 col-lg-5">
 						<label>End Date</label> 
-						<input class="date form-control" [(ngModel)]="sprintEndDate"  ng2-datetime-picker    date-only="true" />
+						<input class="date form-control" [(ngModel)]="sprintEndDate"  ng2-datetime-picker    date-only="true" readonly  />
 					</div>					
 				</div>
 				<div class="row">
@@ -62,7 +76,7 @@
 <div class="row">
 	<div class="col-sm-3 col-lg-3 " *ngFor="let sprint of sprints"  (click)="onSelect(sprint)" >
 		<div class=" card">
-			<div class={{progress}}{{percentage}}  >
+			<div class="{{progress}}{{percentage}} a-margin"  >
 				<span>50% </span>
 				<div class="slice">
 					<div class="bar"></div>
