@@ -74,8 +74,10 @@
 
 
 <div class="row">
-	<div class="col-sm-3 col-lg-3 " *ngFor="let sprint of sprints"  (click)="onSelect(sprint)" >
+	<div class="col-sm-2 col-lg-2 " *ngFor="let sprint of sprints"   >
 		<div class=" card">
+
+			<div  style="margin-left: 92%" (click)="deleteSprint(sprint._id)"> <i  class="fa fa-times-circle fa-2x" aria-hidden="true"  aria-hidden="true"></i></div>
 			<div class="{{progress}}{{percentage}} a-margin"  >
 				<span>50% </span>
 				<div class="slice">
@@ -83,7 +85,7 @@
 					<div class="fill"></div>
 				</div>
 			</div>
-			<div class="card-block text-center">
+			<div class="card-block text-center" (click)="onSelect(sprint)" >
 			<h4 class="card-title"> <strong>{{sprint.name}}</strong></h4>
 			<p class="card-text"></p>
 			</div>

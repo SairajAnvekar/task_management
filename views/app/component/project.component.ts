@@ -16,7 +16,7 @@ export class ProjectComponent implements OnInit   {
 	errorMessage: string;
     projects:Project[]; 
 	activeAddDetails=true;
-	progress=" c100  big green ";
+	progress=" c100 green ";
 	percentage=" p45";
 	public constructor(private router: Router,private projectService:ProjectService) {}	
 	selectedProject: Project;
@@ -47,7 +47,21 @@ export class ProjectComponent implements OnInit   {
 		);
 	}
 	
+	deleteProject(projectId)
+	{
+		this.projectService.deleteProject(projectId).subscribe(project=> {
+		if(project.status=="ok"){ 
+          console.log("deleted");
+		  for(var i=0; i<this.projects.length; i++){
+                if(this.projects[i]._id == projectId){
+                    this.projects.splice(i, 1);
+                }
+            }
+		}
+		});
+	}
 	
+
 	gotoDetail(): void {
 		this.router.navigate(['/detail',this.selectedProject._id]);
 		console.log("test");

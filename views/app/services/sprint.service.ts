@@ -36,6 +36,11 @@ private appUrl= 'sprint';  // URL to web API
 	
 
 
+	deleteSprint(id):Observable<any> {		
+		return this.http.delete(this.appUrl+'/'+id).map(this.extractData).catch(this.handleError);
+	}	
+
+
 	addTask (name: string ,status:string,sId:string): Observable<any> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });     

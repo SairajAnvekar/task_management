@@ -2,12 +2,15 @@
 <h1>{{title}}</h1> 
     {{sprintId}} 	
 <div class="row">
-	<div  class="col-md-2">
+	<div  class="col-md-2 ">
 
-	calender
+		<div class="s-bgcolor-lightBlue">
+				calender
+		</div>
+
 
 	</div>	
-	<div class="col-md-8 strip">
+	<div class="col-md-8 s-bgcolor-lightBlue ">
 <tabs>
 <tab [tabTitle]="'Tasks'">
 	<div>
@@ -63,7 +66,7 @@
 		</div>
 		
 		<div class="form-group row">
-			<button  class="form-control btn s-style1-btn " (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
+			<button  class="form-control btn btn-primary s-style1-btn " (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
 			Add
 			</button>
 			<button class="btn btn-primary form-control" (click)="cancel()" >Cancel</button>
@@ -74,9 +77,9 @@
 	</div>
 
 		
-<div class="strip">  
+<div class="">  
   <div class="panel-group list-type1" id="accordion">
-    <div  *ngFor="let task of tasks; let i = index"  class="panel ">
+    <div  *ngFor="let task of tasks; let i = index"  class="panel transparent ">
       <div class="list ">
     
           <strong><a (click)="onSelect(task)" data-toggle="collapse" data-parent="#accordion" href="#{{task._id}}  ">{{task.name}}</a></strong>
@@ -91,7 +94,7 @@
       </div>
       <div id="{{task._id}}" class="collapse ">
         <div class="panel-body task-details">
-		<div *ngIf="selectedTask">
+		<div *ngIf="selectedTask" class="task-content"> 
 			
 			<div class="row  rwo-2">
 				<div class="col-md-5">
@@ -149,7 +152,7 @@
 				<span (click)="addComment(comment.value)"> <button class="btn btn-primary"> post </button></span>
 			</div>	
 			</div>
-		
+		     <strong><a  class="btn btn-primary pull-right" data-toggle="collapse" data-parent="#accordion" href="#{{task._id}}  ">Close</a></strong>
 		
 		</div>
       </div>
@@ -199,8 +202,10 @@
 	</tab>
 </tabs>
 </div>
-<div class="col-md-2">
- team  members
+<div class="col-md-2 ">
+	<div class="s-bgcolor-lightBlue">
+				calender
+		</div>
 
 </div>
 

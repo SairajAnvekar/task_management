@@ -44,16 +44,20 @@
 
 <div class="row">
 
-<div class="col-sm-3 col-lg-3 "  *ngFor="let project of projects"  (click)="onSelect(project)" >
-	<div class=" card">
-		<div class="{{progress}} p{{project.completed}} a-margin"  >
-			<span>{{project.completed}}%</span>
-			<div class="slice">
-				<div class="bar"></div>
-				<div class="fill"></div>
+<div class="col-sm-2 col-lg-2 "  *ngFor="let project of projects"   >
+	<div class=" card">		 
+		<div  (click)="deleteProject(project._id)" style="margin-left: 92%"> <i  class="fa fa-times-circle fa-2x" aria-hidden="true"  aria-hidden="true"></i></div>
+			
+		<div  class="a-margin">
+			<div class="{{progress}} p{{project.completed}} "  >
+				<span>{{project.completed}}%</span>
+				<div class="slice">
+					<div class="bar"></div>
+					<div class="fill"></div>
+				</div>
 			</div>
 		</div>
-		<div class="card-block text-center">
+		<div class="card-block text-center" (click)="onSelect(project)">		
 			<h4 class="card-title"> <strong>{{project.name}}</strong></h4>
 			<p class="card-text">{{project.desc}}</p>		
 			<div>

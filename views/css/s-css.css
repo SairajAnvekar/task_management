@@ -5,13 +5,22 @@
 .strip{
     background: url(../img/1.png);
 }
+
+.transparent{
+    background: transparent;
+}
 /* form type*/
 .s-form-type-1{
-    border: solid black 2px;
+
     padding: 10px 40px;
     border-radius: 8px;
     font-family: Georgia, "Times New Roman", Times, serif;
     margin:20px 0px 20px 0;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0px 0px 20px 20px;
+    background: #f4f7f8;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25)
 }
 .s-form-type-1 fieldset{
     border: none;
@@ -57,7 +66,7 @@
     margin-bottom: 10px;
 	border-radius: 10px;
 }
-.s-form-type-1 button
+.s-form-type-11 
 {
     position: relative;
     display: block;
@@ -73,9 +82,9 @@
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
 }
-.s-form-type-1 input[type="submit"]:hover,
-.s-form-type-1 input[type="button"]:hover,
-.s-form-type-1 button:hover
+.s-form-type-11 input[type="submit"]:hover,
+.s-form-type-11 input[type="button"]:hover,
+.s-form-type-11 button:hover
 {
     background: #109177;
 }
@@ -84,6 +93,10 @@
     
 
 
+}
+
+.s-bgcolor-lightBlue{
+    background: #e0eef5 !important;
 }
 
 /*end form */

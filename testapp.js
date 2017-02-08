@@ -313,6 +313,19 @@ app.get('/project/:id',function(req,res){
 	});	
 });
 
+app.delete('/project/:id',function(req,res){	 
+	  Project.remove({_id: req.params.id},function(err, project){
+		  response={status:"not"};
+		  console.log(project.ok);
+		    console.log(project);
+		  if(project.result.ok==1)
+		  {
+            response.status="ok"
+		  }
+		  res.json({"data":response});
+	  }); 
+});
+
 app.post('/project/addProjectMember',function(req, res, next){
 	var projectId=req.body._id;
 	var userId=req.body.userId;
@@ -358,6 +371,8 @@ app.post('/project/addProjectMember',function(req, res, next){
 });
 
 
+
+
 app.get('/users',function(req,res)
 {
  User.find({},function(err, doc){	 
@@ -392,6 +407,21 @@ app.get('/sprint/:projectId',function(req,res)
 	
 });
 
+
+app.delete('/sprint/:id',function(req,res)
+{
+	Sprint.remove({_id: req.params.id},function(err, doc){	 
+
+		response={status:"not"};
+		if(doc.result.ok==1)
+		{
+          response.status="ok";
+		}
+		res.json({"data":response});		  
+	});
+	
+});
+
 app.get('/sprint',function(req,res)
 {
 	Sprint.find({},function(err, doc){	 
@@ -405,6 +435,8 @@ app.get('/sprintById/:sprintId',function(req,res)
 		res.json({"data":doc});		  
 	});	
 });
+
+
 
 
 function isLoggedIn(req, res, next) {

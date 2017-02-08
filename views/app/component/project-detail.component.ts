@@ -20,7 +20,7 @@ import 'rxjs/add/operator/switchMap';
 export class ProjectDetailComponent implements OnInit { 
     
     project:any={};
-	progress=" c100  big green ";
+	progress=" c100 green ";
 	percentage=" p45";
 	sprints:any;
 	errorMessage :string;
@@ -113,6 +113,23 @@ export class ProjectDetailComponent implements OnInit {
 		
 	}
 	
+	deleteSprint(id){
+       this.sprintService.deleteSprint(id).subscribe(sprint=> {
+		console.log("s1");
+			console.log(sprint);
+       if(sprint.status=="ok"){
+			for(var i=0 ; i< this.sprints.length; i++){
+
+                console.log(this.sprints[i]);
+				if(this.sprints[i]._id==id){			
+					this.sprints.splice(i,1);
+				}
+
+			}
+	   }
+
+	   });
+	}
 	
 	
 

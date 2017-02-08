@@ -143,7 +143,7 @@ display: block;
 /*padding: .4em .4em .4em 2em;
 *padding: .4em;*/
 margin: .5em 0;
-background: rgba(51, 122, 183, 0.86);
+background: #4a758a;
 color: #000;
 text-decoration: none;
 -moz-border-radius: 28em 11em 11em 10em;
@@ -154,7 +154,7 @@ height:50px;
 }
 
 .list-type1 .list:hover{
-background: rgba(51, 122, 183, 0.6);
+background:#537d92;
 text-decoration:none;
 transform: scale(1.01);
 }
@@ -206,14 +206,12 @@ color:#FFF;
 .stickyNote:focus { box-shadow:0 5px 12px rgba(0,0,0,0.2); outline:none; }
 
 .board{
-	background:green;
-	background: url(../views/img/board3.jpg);	
-	border:5px solid black;
-	border-radius:6px;
+
+	border:3px solid #F4F7F8;
+	border-radius:8px;
 }
 
-.board .board-heading{	
-	color:white;
+.board .board-heading{		
 	text-align:center;
 }
 
@@ -247,9 +245,10 @@ color:#FFF;
 }
 
 .list-type1 .task-details{	
-	border:1px solid rgba(0, 0, 0, 0.125);
-	border-radius:5px;
-	background: #f4f7f8;
+	border:1px solid rgba(0, 0, 0, 0.125);	
+    border-radius: 0px 0px 20px 20px;
+    background: #f4f7f8;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
 
 }
 
@@ -263,3 +262,7 @@ color:#FFF;
 	width:50px;
 }
 
+.task-content{
+   margin: 0px 20px 0px 20px;
+
+}

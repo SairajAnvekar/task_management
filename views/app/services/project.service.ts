@@ -46,10 +46,15 @@ private appUrl= 'project';  // URL to web API
 	}	
 		
 
+	deleteProject(project_id):Observable<any> {		
+		return this.http.delete(this.appUrl+'/'+ project_id).map(this.extractData).catch(this.handleError);
+	}	
+	
+
 	private extractData(res: Response) {
-	 console.log(res);
-	let body = res.json();
-	return body.data || { };
+		console.log(res);
+		let body = res.json();
+		return body.data || { };
 	}
 	private handleError (error: Response | any) {
 	// In a real world app, we might use a remote logging infrastructure
