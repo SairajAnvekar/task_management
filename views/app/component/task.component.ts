@@ -5,9 +5,11 @@ import { UserService } from '../services/user.service';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { ProjectService } from '../services/project.service';
 import { SprintService } from '../services/sprint.service';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
+import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
 @Component({
   selector: 'my-tasks1',
   templateUrl: 'views/app/component/templates/task.component.html',  
@@ -17,12 +19,12 @@ import { Location }                 from '@angular/common';
 	
 
   	viewProviders: [DragulaService],
-    providers: [TaskService,UserService,SprintService]
+    providers: [TaskService,UserService,SprintService,ProjectService]
 })
 export class TaskComponent1 implements OnInit {
 	title="Tasks";	
 	sprint:any;
-	users:any;
+	members:any;
 	sprintId:string;
 	mapTasks:{[id:string]:any}={};	  
 	sprintUpadated:any;
@@ -34,6 +36,70 @@ export class TaskComponent1 implements OnInit {
 	activeAdd=true;
     formName:string;
    	
+	calendarOptions:Object = {
+        height: 'parent',
+        fixedWeekCount : false,
+        defaultDate: '2016-09-12',
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        events: [
+          {
+            title: 'All Day Event',
+            start: '2016-09-01'
+          },
+          {
+            title: 'Long Event',
+            start: '2016-09-07',
+            end: '2016-09-10'
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: '2016-09-09T16:00:00'
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: '2016-09-16T16:00:00'
+          },
+          {
+            title: 'Conference',
+            start: '2016-09-11',
+            end: '2016-09-13'
+          },
+          {
+            title: 'Meeting',
+            start: '2016-09-12T10:30:00',
+            end: '2016-09-12T12:30:00'
+          },
+          {
+            title: 'Lunch',
+            start: '2016-09-12T12:00:00'
+          },
+          {
+            title: 'Meeting',
+            start: '2016-09-12T14:30:00'
+          },
+          {
+            title: 'Happy Hour',
+            start: '2016-09-12T17:30:00'
+          },
+          {
+            title: 'Dinner',
+            start: '2016-09-12T20:00:00'
+          },
+          {
+            title: 'Birthday Party',
+            start: '2016-09-13T07:00:00'
+          },
+          {
+            title: 'Click for Google',
+            url: 'http://google.com/',
+            start: '2016-09-28'
+          }
+        ]
+      };
+
 	task1: Task ={
 					id: 1,
 					name: 'Build App',
@@ -46,7 +112,7 @@ export class TaskComponent1 implements OnInit {
 			this.selectedTask = task;
 		}
 
-    public constructor(private dragulaService:DragulaService,private taskService:TaskService,private sprintService: SprintService,private userService: UserService,  private route: ActivatedRoute,private location: Location) {
+    public constructor(private dragulaService:DragulaService,private taskService:TaskService,private sprintService: SprintService,private userService: UserService, private projectService:ProjectService, private route: ActivatedRoute,private location: Location) {
 	  
 		dragulaService.dropModel.subscribe((value:any) => {
 		this.onDropModel(value.slice(1));
@@ -69,8 +135,7 @@ export class TaskComponent1 implements OnInit {
 		var idxOfTask=this.sprintTask.indexOf(tid);		
 		var  idxOfWorking=this.workingTask.indexOf(tid);
 		var  idxOfStage=this.stageTask.indexOf(tid);
-		var  idxOfProd=this.prodTask.indexOf(tid);
-		
+		var  idxOfProd=this.prodTask.indexOf(tid);	
 		
 		
 		console.log(this.sprint._id);
@@ -90,8 +155,7 @@ export class TaskComponent1 implements OnInit {
 	//	this.taskService.getTasks().then(tasks => this.tasks = tasks);;
 	}
   
-	ngOnInit(): void {
-		var id;
+	ngOnInit(): void {		var id;
 		
 		console.log("testin 124556");
 		this.route.params.forEach((params: Params) => {
@@ -105,7 +169,7 @@ export class TaskComponent1 implements OnInit {
 					console.log(sprint);
 					this.getTasksOb();
 					this.getSprintDetails(this.sprint._id);
-					this.getUsers();
+					this.getMembers(this.sprint.projectId);
 					},
 				error =>  this.errorMessage = <any>error
 			);
@@ -116,7 +180,7 @@ console.log("new ===============data")
 console.log(this.sprint)
 		//this.getTasksOb();	
 	//	this.getSprintDetails(this.sprint._id);
-	//	this.getUsers();
+	//	this.getMembers();
         	
 	}
 	
@@ -165,11 +229,9 @@ console.log(this.sprint)
 		}
 	}
 	
-	updateTask(_id: string ): void {
-			
-	    var editTask=this.selectedTask;
-     
-			this.taskService.updateTask(editTask)
+	updateTask(_id: string ): void {			
+		 var editTask=this.selectedTask;     
+		this.taskService.updateTask(editTask)
 					 .subscribe(
 					   task  =>{this.mapTasks[task['_id']]={
 															'_id':task['_id'],
@@ -177,26 +239,19 @@ console.log(this.sprint)
 															'status':task['status']
 
 							};console.log("task");console.log(task)	},
-					   error =>  this.errorMessage = <any>error);
-		     
-		
-		
+					   error =>  this.errorMessage = <any>error);	
 	}
 	
 	delete(task): void {
 			this.taskService.deleteTask(task._id).subscribe(
-	  tasks1 => {
-				
-				 delete this.mapTasks[task._id];
-				 this.deleteFromArray(task);
-				
-				console.log(this.sprintTask);
-				
-				this.getTasksOb();
-			},
-			error =>  this.errorMessage = <any>error
-		);
-			
+				tasks1 => {
+					delete this.mapTasks[task._id];
+					this.deleteFromArray(task);
+					console.log(this.sprintTask);
+					this.getTasksOb();
+				},
+				error =>  this.errorMessage = <any>error
+				);			
 	}
 	
 	
@@ -267,22 +322,20 @@ console.log(this.sprint)
 	
 	
 	cancel()
-	{		
-		//$('.form-style-5').hide();
+	{				
 		this.activeAdd=true;
 	}
 	
 	showAdd()
 	{
-		//$('.form-style-5').show();
 		this.activeAdd=false;		
 	}
 	
 	//users functions
 	
-	getUsers() {		
-		this.userService.getUsers().subscribe(
-			users => {this.users = users;console.log("users");console.log(users)},
+	getMembers(projectId) {		
+		this.projectService.getMembers(projectId).subscribe(
+			members => {this.members = members[0].members;console.log("users");console.log(members[0].members)},
 			error =>  this.errorMessage = <any>error
 		);
 	}

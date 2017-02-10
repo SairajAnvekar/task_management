@@ -371,6 +371,13 @@ app.post('/project/addProjectMember',function(req, res, next){
 });
 
 
+app.get("/project/projectMembers/:projectId",function(req,res){
+	projectId=req.params.projectId;
+	Project.find({'_id':projectId},'members',function(err, doc) {	 
+	res.json({"data":doc});		  
+	});
+});
+
 
 
 app.get('/users',function(req,res)

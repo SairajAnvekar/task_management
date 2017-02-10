@@ -58,6 +58,9 @@ element.style {
 .add{
 	 border: 1px solid rgba(0, 0, 0, 0.125);
 	 margin-bottom:15px;
+     background: #C5E1EF;
+     border-radius: 10px;
+     box-shadow: 0 5px 15px 0 rgba(0,0,0,0.25);
 }
 .add > div{
 	margin:10px;	
@@ -68,3 +71,7 @@ element.style {
 	margin-bottom:10px;
 }
 
+.project-details{
+     background: #C5E1EF;
+
+}

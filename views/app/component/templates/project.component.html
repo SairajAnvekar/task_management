@@ -9,20 +9,22 @@
 				<label>Project Name</label> 
 				<input #name  class="form-control"  (click)="showAddDetails()"/>					
 			</div>
-			<div class="col-sm-12 "   [hidden]="activeAddDetails" >	
+			<div class="col-sm-12  "   [hidden]="activeAddDetails" >	
+				<div class="form-group">
 				<label>Description </label> 
-				<textarea #desc  class="form-control" id="textarea" name="textarea"></textarea>				
-				<div class="col-sm-6 ">
+				<textarea #desc  class="form-control" id="textarea" name="textarea"></textarea>			
+				</div>	
+				<div class="col-sm-6 form-group ">
 					<label>Start Date</label> 
 					<input class="date form-control" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true"  readonly />
 				</div>
 				
-				<div class="col-sm-6 ">
+				<div class="col-sm-6  form-group">
 					<label>End Date</label> 
 					<input class="date form-control" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true" readonly />
 				</div>					
 			</div>
-			<div class="col-sm-12">
+			<div class="col-sm-12 form-group">
 				<button class="btn btn-primary form-control" (click)="create(name.value,desc.value,starDate,endDate); name.value='';desc.value='' ">
 				Add
 				</button>

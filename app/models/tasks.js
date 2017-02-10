@@ -18,6 +18,8 @@ var TaskSchema = new mongoose.Schema({
 	created_by:{type:String},
 	created_date:{type: Date,default: Date.now},
 	progress:{type: Number,default : 0}, 
+	asign_to_id:{type:String},
+	asign_to_name:{type:String},
 	comments:[commentsSchema],
  	
 });

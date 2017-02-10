@@ -1,11 +1,11 @@
 
 <h1>{{title}}</h1> 
-    {{sprintId}} 	
+
 <div class="row">
 	<div  class="col-md-2 ">
 
 		<div class="s-bgcolor-lightBlue">
-				calender
+		
 		</div>
 
 
@@ -18,7 +18,7 @@
 		<div  class="col-md-12 s-form-type-1 s-border-type-1" >	
         <fieldset class="form-group row">
 				<legend *ngIf="formName" >{{formName}}</legend>
-				<legend><span class="number">1</span> *Task </legend>
+				<legend> *Task </legend>
 				<input type="text" class="form-control" placeholder="Task Name" #taskname  (click)="showAdd()">
 			 
 		 </fieldset>
@@ -52,8 +52,7 @@
 				<textarea class="form-control" placeholder="Description of task" #taskDesc></textarea>
 			</fieldset>
 
-			<fieldset class="form-group row">
-				<legend><span class="number">2</span> Date</legend>
+			<fieldset class="form-group row">		
 				<div class="col-md-6"> 
 					<label >Start Date</label>
 					<input class="date" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true" readonly />
@@ -69,7 +68,7 @@
 			<button  class="form-control btn btn-primary s-style1-btn " (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
 			Add
 			</button>
-			<button class="btn btn-primary form-control" (click)="cancel()" >Cancel</button>
+			<button  [hidden]="activeAdd" class="btn btn-primary form-control" (click)="cancel()" >Cancel</button>
 
 		</div>
 
@@ -137,6 +136,17 @@
 					<option value="4">4</option>
 					</select>				
 				</div>
+
+
+				<div class="col-md-5">
+					<label>Asign To </label>  
+					<select  class="form-control" [(ngModel)]="selectedTask.asign_to_id">
+					<option *ngFor="let member of members; let i = index"  value={{member.userid}} >	
+					{{member.name}}
+					</option>
+					</select>
+					
+                </div>
 
 				
 			</div>
@@ -211,40 +221,12 @@
 
 </div>
 
-	<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
+	<!--<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
       <li *ngFor="let task of sprintTask; let i = index"  >
        <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}} {{mapTasks[task].desc}}{{mapTasks[task].priority}} 	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
       </li>
-    </ul>
+    </ul>-->
 	
 	
 	
 <hr>
-display
-
-
-
-
-
-
-	
-	
-	map task
-	{{mapTasks | json }}
-	<br>
-	<br>
-	<br>
-	{{sprintTask | json}}
-	<!--map
-	{{mapTasks | json }}
-
-	
-	 <div class='container'>
-            <pre>{{tasks | json}}</pre>
-        </div> -->
-		{{workingTask | json}}
-		{{stageTask | json}}
-		{{prodTask | json}}
-		
-		
- <!-- <task-detail1 [task]="selectedTask"></task-detail1>-->
