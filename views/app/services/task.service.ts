@@ -34,10 +34,10 @@ private heroesUrl = 'tasks';  // URL to web API
 		
 		
 		
-	addTask (name: string ,_id:string, pri:number,desc:string,type:string): Observable<Task> {
+	addTask (name: string ,_id:string, pri:number,desc:string,type:string,asignId:string,start:string,end:string): Observable<Task> {
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		let options = new RequestOptions({ headers: headers });     
-		return this.http.post('addTask', { name ,_id ,pri,desc,type}, options)
+		return this.http.post('addTask', { name ,_id ,pri,desc,type,asignId,start,end}, options)
 					.map(this.extractData)
 					.catch(this.handleError);
 	}	

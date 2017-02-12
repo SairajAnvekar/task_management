@@ -14,8 +14,11 @@ import {LocationStrategy, HashLocationStrategy}  from '@angular/common';
 import { TaskDetailComponent1 } from './component/task-detail.component';
 import { TaskComponent1 } from './component/task.component';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+
+import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
 import {Tabs} from './component/tabs';
 import {Tab} from './component/tab';
+
 @NgModule({
 imports:[
 	BrowserModule, 
@@ -24,7 +27,7 @@ imports:[
     DragulaModule,
 	Ng2DatetimePickerModule,
 	RouterModule.forRoot([
-	   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+	   { path: '', redirectTo: '/project', pathMatch: 'full' },
 		{
 			path: 'tasks',
 			component: TaskComponent
@@ -49,7 +52,7 @@ imports:[
 	])
   
   ],
-  declarations: [AppComponent,TaskComponent ,TaskComponent1, TaskDetailComponent,TaskDetailComponent1 , DashboardComponent,ProjectComponent,ProjectDetailComponent, Tabs, Tab],
+  declarations: [AppComponent,TaskComponent ,TaskComponent1, TaskDetailComponent,TaskDetailComponent1 , DashboardComponent,ProjectComponent,ProjectDetailComponent, Tabs, Tab, CalendarComponent],
   bootstrap:    [ AppComponent ], 
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}]
 })

@@ -1,11 +1,14 @@
 
 <div class="row">
 
-  <div class=" add s-panel project-details col-lg-6 col-md-offset-2">
-	<div class="panel-heading"><h5>{{project.name}}</h5></div>
+  <div class=" add s-panel project-details col-lg-10 col-md-offset-1">
+
 	<div class="panel-body">
-		<div class="col-md-8" >
+		<div class="col-md-7" >
 		
+			<div class=" form-group row">
+				<h4>Project Details</h4>				
+			</div>
 			<div class=" form-group row">
 				<label>Name</label>
 				<input class="form-control" [(ngModel)]="project.name" >
@@ -15,16 +18,20 @@
 				<label>Description</label>
 				<textarea class="form-control" [(ngModel)]='project.desc'>   </textarea>
 			</div> 
-            <div class=" form-group row">  	
+            <div class=" form-group row"> 
 			    <div class="col-md-5">
 					<label>Add Members</label>  
-					<select #member class="form-control">
-					<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
-					{{user.local.fname}}
-					</option>
-					</select>
-					<button  class="btn btn-primary" (click)="addMember(member.value)" > add member</button>
-                </div>
+					<div class="input-group">
+						<select #member class="form-control">
+						<option *ngFor="let user of users; let i = index"  value={{user._id}}  class="list" >	
+						{{user.local.fname}}
+						</option>
+						</select>
+						    <span class="input-group-btn">
+						<button  class="btn btn-primary" (click)="addMember(member.value)" > +</button>
+						    </span>
+					</div>
+			    </div>
 				<div class="col-md-5">
 					<label>Completed</label>  
 					<input type="number" class="form-control" max=100  [(ngModel)]='project.completed'/>
@@ -36,22 +43,15 @@
 
 			</div>
 		</div>
-	</div>
-    </div>
-
-</div>
-
-
-	
-
-		<div class="row">		
-			
-			<div class="col-sm-5 col-lg-5 add" >
+	<div class="col-sm-5 col-lg-5 " >
+		<div class=" form-group row">
+				<h4>Add Sprints</h4>				
+			</div>
 				<div class="row">
 					<label>Sprint Name</label> 
 					<input #name  class="form-control" />
 					<label>Description </label> 
-					<textarea #status  class="form-control" id="textarea" name="textarea"></textarea>
+					<textarea #desc  class="form-control" id="textarea" name="textarea"></textarea>
 				</div>
 				<div class="row">				
 					<div class="col-sm-5 col-lg-5">
@@ -65,13 +65,16 @@
 					</div>					
 				</div>
 				<div class="row">
-					<button class="btn btn-primary form-control" (click)="create(name.value,status.value)">	Add	</button>
+					<button class="btn btn-primary form-control" (click)="create(name.value,desc.value)">	Add	</button>
 				</div>
 
 			</div>
-		</div>
-	
-	
+
+
+	</div>
+    </div>
+
+</div>
 
 
 <div class="row">
@@ -88,7 +91,7 @@
 			</div>
 			<div class="card-block text-center" (click)="onSelect(sprint)" >
 			<h4 class="card-title"> <strong>{{sprint.name}}</strong></h4>
-			<p class="card-text"></p>
+			<p class="card-text">{{sprint.desc}}</p>		
 			</div>
 		</div>
 	</div>	

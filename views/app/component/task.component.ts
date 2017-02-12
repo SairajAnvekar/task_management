@@ -1,4 +1,4 @@
-import { Component , OnInit,Input} from '@angular/core';
+import { Component , OnInit,Input,AfterViewInit} from '@angular/core';
 import {Task} from '../models/task';
 import { TaskService } from '../services/task.service';
 import { UserService } from '../services/user.service';
@@ -9,7 +9,9 @@ import { ProjectService } from '../services/project.service';
 import { SprintService } from '../services/sprint.service';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
-import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
+import * as $ from 'jquery';
+import 'fullcalendar';
+
 @Component({
   selector: 'my-tasks1',
   templateUrl: 'views/app/component/templates/task.component.html',  
@@ -21,7 +23,7 @@ import {CalendarComponent} from "angular2-fullcalendar/src/calendar/calendar";
   	viewProviders: [DragulaService],
     providers: [TaskService,UserService,SprintService,ProjectService]
 })
-export class TaskComponent1 implements OnInit {
+export class TaskComponent1 implements OnInit , AfterViewInit{
 	title="Tasks";	
 	sprint:any;
 	members:any;
@@ -36,68 +38,21 @@ export class TaskComponent1 implements OnInit {
 	activeAdd=true;
     formName:string;
    	
-	calendarOptions:Object = {
-        height: 'parent',
+	calendarOptions:Object = {      
         fixedWeekCount : false,
-        defaultDate: '2016-09-12',
+				aspectRatio: 1,			
+        defaultDate: new Date(),
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2016-09-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2016-09-07',
-            end: '2016-09-10'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2016-09-09T16:00:00'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2016-09-16T16:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2016-09-11',
-            end: '2016-09-13'
-          },
-          {
-            title: 'Meeting',
-            start: '2016-09-12T10:30:00',
-            end: '2016-09-12T12:30:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2016-09-12T12:00:00'
-          },
-          {
-            title: 'Meeting',
-            start: '2016-09-12T14:30:00'
-          },
-          {
-            title: 'Happy Hour',
-            start: '2016-09-12T17:30:00'
-          },
-          {
-            title: 'Dinner',
-            start: '2016-09-12T20:00:00'
-          },
-          {
-            title: 'Birthday Party',
-            start: '2016-09-13T07:00:00'
-          },
-          {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2016-09-28'
-          }
-        ]
+        events: {
+         url: 'http://localhost:3000/scalender/sprint/58a00ec750663108341e99c3qqq',
+				},
+				eventDrop: function (event, delta) {
+            alert(event + ' was moved ' + delta + ' days\n' +
+                '(should probably update your database)');
+								console.log("evenr");
+									console.log(event);
+        },
       };
 
 	task1: Task ={
@@ -155,8 +110,24 @@ export class TaskComponent1 implements OnInit {
 	//	this.taskService.getTasks().then(tasks => this.tasks = tasks);;
 	}
   
-	ngOnInit(): void {		var id;
+		ngAfterViewInit(){
+   	console.log("this.sprint");
+		 console.log(this.sprintId);
+			console.log(this.sprint);
+			setTimeout(()=>{
+			// console.log("100ms after ngAfterViewInit ");
+		//	$('#calendar').fullCalendar(this.calendarOptions);
+			
+		}, 100);
+
+		//	$('#showEvents').fullCalendar(this.calendarOptions);
 		
+		}
+	ngOnInit(): void {		var id;
+
+
+
+
 		console.log("testin 124556");
 		this.route.params.forEach((params: Params) => {
 			id = params['id'];
@@ -170,6 +141,9 @@ export class TaskComponent1 implements OnInit {
 					this.getTasksOb();
 					this.getSprintDetails(this.sprint._id);
 					this.getMembers(this.sprint.projectId);
+					this.calendarOptions['events'].url='http://localhost:3000/scalender/sprint/'+this.sprint._id;
+					console.log(this.calendarOptions);
+					$('#showEvents').fullCalendar(this.calendarOptions);
 					},
 				error =>  this.errorMessage = <any>error
 			);
@@ -205,13 +179,17 @@ console.log(this.sprint)
 		);
 	}
 	
-	add(name: string,_id: string ,pri:number,desc:string,type:string): void {
+	add(name: string,_id: string ,pri:number,desc:string,type:string,asignId:string,startDate:string,endDate:string): void {
 	   name = name.trim();
         if(name=="")
          	this.formName="Task Name is required ";		
-	    else{        	   
+	    else{  
+	
+				startDate=this.formatDate(startDate);
+				endDate=this.formatDate(endDate);
+  	   
 			_id=this.sprintId;
-				this.taskService.addTask(name,_id,pri,desc,type)
+				this.taskService.addTask(name,_id,pri,desc,type,asignId,startDate,endDate)
 						 .subscribe(
 						   task  =>{						   
 								this.sprintTask.push(task['_id']);						
@@ -342,17 +320,46 @@ console.log(this.sprint)
 	
 	
 	
-	addComment(comment): void {
-			
-	    var taskId=this.selectedTask._id;
-     
-			this.taskService.addTaskComment(taskId,comment)
-					 .subscribe(
-					   task  =>{console.log("taskaddd");console.log(task)	},
-					   error =>  this.errorMessage = <any>error);
-		     
-		
-		
+	addComment(comment): void {			
+		var taskId=this.selectedTask._id;
+
+		this.taskService.addTaskComment(taskId,comment)
+			.subscribe(
+				task  =>{console.log("taskaddd");console.log(task)	},
+				error =>  this.errorMessage = <any>error);	    
+	}
+
+
+
+
+	formatDate(date){
+		var format=date.toString().split(' ');
+		var formatedDate=format[0]+"T"+format[1];
+ 		return formatedDate;
+	} 
+
+	calenderTest()
+	{
+
+
+		var event={id:1 , title: 'New event', start:  new Date()};
+		var dates=$('#calendar').fullCalendar( 'renderEvent', event, true);
+		var events=$('#calendar').fullCalendar( 'clientEvents');
+	  console.log(events);
+
+		console.log("enter");
+		$('#calendar').fullCalendar({
+    eventClick: function(calEvent, jsEvent, view) {
+
+        alert('Event: ' + calEvent.title);
+        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        alert('View: ' + view.name);
+
+        // change the border color just for fun
+        $(this).css('border-color', 'red');
+
+    }
+});
 	}
 	
 	

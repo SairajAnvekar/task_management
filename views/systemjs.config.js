@@ -35,7 +35,9 @@
 		'ng2-slimscroll': 'node_modules/ng2-slimscroll',
 		'moment': 'node_modules/moment',
 		'ng2-datetime-picker': 'node_modules/ng2-datetime-picker/dist',
-    'angular2-fullcalendar': 'angular2-fullcalendar/src/calendar',
+    'angular2-fullcalendar': 'node_modules/angular2-fullcalendar',
+     'jquery': 'node_modules/jquery',
+     'fullcalendar':'node_modules/fullcalendar',
 		
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -63,6 +65,8 @@
 	'moment': {main: 'moment.js', defaultExtension: 'js'},
 	'ng2-datetime-picker': {main: 'ng2-datetime-picker.umd.js', defaultExtension: 'js'},
   'angular2-fullcalendar': {main: 'calendar.js', defaultExtension: 'js'},
+  'fullcalendar': {main: 'dist/fullcalendar.js', defaultExtension: 'js'},
+   'jquery': {main: 'dist/jquery.js', defaultExtension: 'js'},
 	  
     }	
 	

@@ -30,9 +30,14 @@ export class ProjectComponent implements OnInit   {
         this.gotoDetail();		
 	}
 	
-	create(name: string,desc: string,sdate:any,endDate:any): void {
+	create(name: string,desc: string,sdate:string,endDate:string): void {
 		name = name.trim();	
+		var str=""+sdate;
+		var time= str.split(' ');
+        sdate=time[0]+"T"+time[1];
 		console.log(sdate);
+		var formatendDate=endDate.toString().split('');
+        
 		this.projectService.createProject(name,desc,sdate,endDate)
 						 .subscribe(
 						   project  =>console.log(project),

@@ -57,8 +57,8 @@ export class ProjectDetailComponent implements OnInit {
        
 	}
 
-	create(name: string,status: string): void {
-		this.sprintService.createSprint(name,status,this.project._id)
+	create(name: string,desc: string): void {
+		this.sprintService.createSprint(name,desc,this.project._id)
 						  .subscribe(project  =>console.log(project),
 										error =>  this.errorMessage = <any>error);
 		this.getTasksOb(this.project._id);

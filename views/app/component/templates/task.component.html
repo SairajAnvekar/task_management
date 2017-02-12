@@ -2,15 +2,18 @@
 <h1>{{title}}</h1> 
 
 <div class="row">
-	<div  class="col-md-2 ">
+	<div  class="col-md-3 ">
 
 		<div class="s-bgcolor-lightBlue">
+       
+	   <div id="showEvents" ></div>
+		
 		
 		</div>
 
 
 	</div>	
-	<div class="col-md-8 s-bgcolor-lightBlue ">
+	<div class="col-md-7 s-bgcolor-lightBlue ">
 <tabs>
 <tab [tabTitle]="'Tasks'">
 	<div>
@@ -24,7 +27,7 @@
 		 </fieldset>
          <div class="flow-in" [hidden]="activeAdd">
 			<fieldset   class="form-group row">	
-				<div class="col-md-6">	
+				<div class="col-md-4">	
 					<label for="piority">Piority:</label>
 					<select id="piority" class="form-control" #taskPiority>
 					<option value="1">1</option>
@@ -33,7 +36,7 @@
 					<option value="4">4</option>
 					</select>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<label for="job">Type:</label>
 					<select id="job" class="form-control" #taskType>
 					<optgroup label="Devloping">
@@ -45,6 +48,17 @@
 					</optgroup>
 					</select> 
 				</div>
+
+				<div class="col-md-4">
+					<label>Asign To </label>  
+					<select  class="form-control" #asign_to_id>
+					<option *ngFor="let member of members; let i = index"  value={{member.userid}} >	
+					{{member.name}}
+					</option>
+					</select>
+					
+                </div>
+
 			</fieldset>
 			
 			<fieldset class="form-group row">                
@@ -55,17 +69,17 @@
 			<fieldset class="form-group row">		
 				<div class="col-md-6"> 
 					<label >Start Date</label>
-					<input class="date" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true" readonly />
+					<input class="date" [(ngModel)]="startDate"  ng2-datetime-picker   readonly />
 				</div>
 				<div class="col-md-6">
 					<label >End Date</label>
-					<input class="date" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true"  readonly/>
+					<input class="date" [(ngModel)]="endDate"  ng2-datetime-picker   readonly/>
 				</div>
 			</fieldset>
 		</div>
 		
 		<div class="form-group row">
-			<button  class="form-control btn btn-primary s-style1-btn " (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value); taskname.value='' ">
+			<button  class="form-control btn btn-primary s-style1-btn " (click)="add(taskname.value,1,taskPiority.value,taskDesc.value,taskType.value,asign_to_id.value,startDate,endDate); taskname.value='' ">
 			Add
 			</button>
 			<button  [hidden]="activeAdd" class="btn btn-primary form-control" (click)="cancel()" >Cancel</button>
@@ -107,14 +121,14 @@
 			</div>
 
 			<div class="row row-3">
-				<div class="col-md-10">
+				<div class="col-md-12">
 				Description				
 					<textarea [(ngModel)]="selectedTask.description"  class="form-control" id="textarea" name="textarea"></textarea>
 				</div>
 			</div>
 					
 			<div class="row row-4">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<span class="textLable"> Status</span>
 					<select  class="form-control" [(ngModel)]="selectedTask.status">
 					<option value="not started">Not Started</option>
@@ -122,12 +136,12 @@
 					<option value="completed">completed</option>
 					</select>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 				Progress
 				 <input type="text" class="form-control" [(ngModel)]="selectedTask.progress"  max="100">
 				
 				</div>	
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<label for="type">Piority:</label>
 					<select id="type" name="field4"  class="form-control" [(ngModel)]="selectedTask.priority">
 					<option value="1">1</option>
@@ -221,12 +235,20 @@
 
 </div>
 
+<div class=" col-md-4">
+	<angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
 	<!--<ul class="tasks"  [dragula]='"task"'   [dragulaModel]='sprintTask'>
       <li *ngFor="let task of sprintTask; let i = index"  >
        <div *ngIf="mapTasks[task]"> <span class="badge">{{i+1}}</span> {{mapTasks[task].name}} {{mapTasks[task].desc}}{{mapTasks[task].priority}} 	 <input  class='tid' type="hidden"  value={{mapTasks[task]._id}}/></div>	
       </li>
     </ul>-->
-	
-	
+</div>
+
+<div class="col-md-4">
+<div id='calendar'></div>
+</div>
+<div class="btn btn-primary" (click) ='calenderTest()'> test </div>
+
+	{{	calendarOptions | json}}
 	
 <hr>

@@ -9,7 +9,7 @@ app.get('/login', function (req, res) {
 });
 
 app.post('/login', passport.authenticate('local-login', {
-	successRedirect: '/test', // redirect to the secure dashboard section
+	successRedirect: '/home', // redirect to the secure dashboard section
 	failureRedirect: '/login', // redirect back to the signup page if there is an error
 	failureFlash: true // allow flash messages
 }));
@@ -25,7 +25,7 @@ app.get('/signup', function (req, res) {
 
 // process the signup form
 app.post('/signup', passport.authenticate('local-signup', {
-	successRedirect: '/test', // redirect to the secure profile section
+	successRedirect: '/home', // redirect to the secure profile section
 	failureRedirect: '/signup', // redirect back to the signup page if there is an error
 	failureFlash: true // allow flash messages
 }));

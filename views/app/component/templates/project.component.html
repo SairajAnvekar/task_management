@@ -16,12 +16,12 @@
 				</div>	
 				<div class="col-sm-6 form-group ">
 					<label>Start Date</label> 
-					<input class="date form-control" [(ngModel)]="starDate"  ng2-datetime-picker    date-only="true"  readonly />
+					<input class="date form-control" [(ngModel)]="starDate"  ng2-datetime-picker     readonly />
 				</div>
 				
 				<div class="col-sm-6  form-group">
 					<label>End Date</label> 
-					<input class="date form-control" [(ngModel)]="endDate"  ng2-datetime-picker    date-only="true" readonly />
+					<input class="date form-control" [(ngModel)]="endDate"  ng2-datetime-picker    readonly />
 				</div>					
 			</div>
 			<div class="col-sm-12 form-group">
@@ -43,7 +43,7 @@
 	
 </div>
 		
-
+{{endDate}}
 <div class="row">
 
 <div class="col-sm-2 col-lg-2 "  *ngFor="let project of projects"   >
